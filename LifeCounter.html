@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<head>
+<!-- script includes -->
+<!-- <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+<script src="jquery-2.1.1.min.js"></script>
+<!-- /script includes -->
+<style>
+.box
+{
+	//height:20em;
+	//width:20em;
+	display:inline-block;
+	border: 1px solid black;
+	padding:2em;
+	border-radius:5px;
+	margin:.5em;
+	background: url("images/80perc-trans.png");
+}
+.center
+{
+	text-align:center;
+}
+.menuBox
+{
+	width: 40%;
+	//padding: 1em;
+	height: 10em;
+	background: url("images/40perc-trans.png");
+	border-radius: 10px;
+	//margin-left: 5%;
+	//float: left;
+}
+#Main
+{
+	padding:1em;
+	height:auto;
+	//background: url("images/40perc-trans.png");
+	border-radius:10px;
+}
+.row
+{
+	display:inline-block;
+	width:100%;
+	height:auto;
+}
+.halfRow
+{
+	display:inline-block;
+	width:45%;
+	height:auto;
+}
+body
+{
+	background: url("images/nylea.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	//padding-left:10em;
+	//padding-right:10em;
+}
+.shadow-white
+{
+	text-shadow: 1px 1px white;
+}
+.lifeLabel
+{
+	font-size:10em;
+}
+.btnClose
+{
+	float:right;
+	display:inline-block;
+}
+button
+{
+	min-width:3em;
+	min-height:3em;
+}
+h2
+{
+	display:inline-block;
+}
+.leftpane
+{
+	width:70%;
+	float:left;
+	margin-top: -2em;
+}
+.rightpane
+{
+	width: 30%;
+	height: 80%;
+	float: left;
+}
+.scroll
+{
+	height:8em;
+	overflow-y: scroll;
+}
+.infect
+{
+	background-color:green;
+	color:white;
+}
+.poison
+{
+	color: darkgreen;
+	font-weight: bolder;
+	text-shadow: 2px 2px 2px green;
+}
+.poisonMaster
+{
+	color:darkgreen;
+	font-weight:bold;
+	font-size:30px;
+	margin:1.15em;
+}
+.ledger
+{
+	overflow-y:auto;
+}
+#Time
+{
+	font-size:6em;
+}
+.timerBox
+{
+	float:left;
+}
+</style>
+<script>
+// Remove player
+function removePlayer(playerInt)
+{
+	playerString = "#Player" + playerInt + "Box";
+	$(playerString).remove();
+}
+
+function plus1(playerInt)
+{
+	var id = "LifePlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) + 1;
+	document.getElementById(id).innerHTML = num;
+	document.getElementById(ledgerId).innerHTML += "<br>+1";
+	
+}
+
+function minus1(playerInt)
+{
+	var id = "LifePlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) - 1;
+	document.getElementById(id).innerHTML = num;
+	document.getElementById(ledgerId).innerHTML += "<br>-1";
+	if(num <= 0)
+	{
+		var playerString = "#Player" + playerInt + "Box";
+		eliminatePlayer(playerString);
+	}
+}
+
+function plus5(playerInt)
+{
+	var id = "LifePlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) + 5;
+	document.getElementById(id).innerHTML = num;
+	document.getElementById(ledgerId).innerHTML += "<br>+5";
+}
+
+function minus5(playerInt)
+{
+	var id = "LifePlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) - 5;
+	document.getElementById(id).innerHTML = num;
+	document.getElementById(ledgerId).innerHTML += "<br>-5";
+	if(num <= 0)
+	{
+		var playerString = "#Player" + playerInt + "Box";
+		eliminatePlayer(playerString);
+	}
+}
+
+function poisonAdd(playerInt)
+{
+	var id = "PoisonPlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) + 1;
+	document.getElementById(id).innerHTML = num;
+	document.getElementById(ledgerId).innerHTML += "<br><span class=\"poison\">+1</span>";
+	if(num >= 10)
+	{
+		var playerString = "#Player" + playerInt + "Box";
+		eliminatePlayer(playerString);
+	}
+}
+function poisonRemove(playerInt)
+{
+	var id = "PoisonPlayer" + playerInt;
+	var ledgerId = "Ledger" + playerInt;
+	var num = parseInt(document.getElementById(id).innerHTML) - 1;
+	if(num > -1)
+	{
+		document.getElementById(id).innerHTML = num;
+		document.getElementById(ledgerId).innerHTML += "<br><span class=\"poison\">-1</span>";
+	}
+}
+
+// Eliminate Player
+function eliminatePlayer(playerString)
+{
+	$(playerString).css("background","url(\"images/40perc-trans.png\")");
+	$(playerString).contents().find( "button" ).prop( "disabled", true );
+	$(playerString).contents().find( ".btnClose" ).prop( "disabled", false );
+}
+
+var images = ["images/nylea.jpg","images/avacyn.jpg","images/serra.jpg","images/kaalia.jpg","images/liliana.jpg","images/royalelemental.jpg","images/sorin.jpg","images/butcher.jpg"];
+function rotate(id) {
+	$("body").css("background","url("+images[id]+")");
+	$("body").css("background-repeat","no-repeat");
+	$("body").css("background-size","cover");
+	
+}
+
+$(function() {
+    // document ready
+
+	
+	function startTimer(duration, display) {
+		var timer = duration, minutes, seconds;
+		return window.setInterval(function () {
+			minutes = parseInt(timer / 60, 10)
+			seconds = parseInt(timer % 60, 10);
+
+			minutes = minutes < 10 ? "0" + minutes : minutes;
+			seconds = seconds < 10 ? "0" + seconds : seconds;
+
+			display.text(minutes + ":" + seconds);
+
+			if (--timer < 0) {
+				timer = duration;
+			}
+		}, 1000);
+	}
+
+	$( "#StartStopTimer" ).on( "click", function() {	
+		jQuery(function ($) {
+		var minutes = 60 * 1,
+			display = $('#Time');
+		var timerObject = startTimer(minutes, display);
+		});		
+	});
+	
+	$( "#ResetTimer" ).on( "click", function() {	
+		jQuery(function ($) {
+		var minutes = 60 * 1,
+			display = $('#Time');
+		var timerObject = startTimer(minutes, display);
+		});		
+	});
+
+	
+	// Add player
+	$( "#AddPlayer" ).on( "click", function() {	
+	var life = $("#StartingLife").val();
+	var name = prompt("Please enter your name", "");
+	if (name != null && name.length > 0) {
+		name = name.substring(0,15);
+		var playerString = $("#PlayerCount").val();
+		playerInt = parseInt(playerString) + 1;
+		$("#PlayerCount").val(playerInt);
+		document.getElementById("Main").innerHTML += "<div id=\"Player"+playerInt+"Box\"class=\"box\"><div class=\"row\"><h2>"+ name +"</h2><button class=\"btnClose\" onclick=\"removePlayer("+ playerInt +")\">X</button></div>"
+		+ "<div class=\"leftpane\"><div class=\"row\"></div>" 
+		+ "<div class=\"row\"><label id=\"LifePlayer" + playerInt + "\"class=\"lifeLabel\">"+ life +"</label></div>" 
+		+ "<div class=\"row\"><button class=\"infect\"onclick=\"poisonAdd("+playerInt+")\">+1</button>"
+		+ "<button class=\"infect\"onclick=\"poisonRemove("+ playerInt +")\">-1</button>"
+		+ "&nbsp;<label id=\"PoisonPlayer"+ playerInt + "\" class=\"poisonMaster\">0</label></div>"
+		+ "<div class=\"row\"><button onclick=\"plus1(" + playerInt + ")\">+1</button>"
+		+ "<button onclick=\"plus5(" + playerInt + ")\">+5</button>"
+		+ "<button onclick=\"minus1(" + playerInt + ")\">-1</button>"
+		+ "<button onclick=\"minus5(" + playerInt + ")\">-5</button></row>"
+		+ "</div></div><div class=\"rightpane\"><div class=\"row\"><div id=\"Ledger"+ playerInt +"\" class=\"scroll\"></div></div>"
+		+ "<div class=\"scroll\"><textarea class=\"edhLedger\"rows=\"8\" cols=\"7\" /></textarea></div></div>";
+		}
+	});
+	
+
+	
+	// Change Gamemode
+	$( "#Gamemode" ).change(function() {	
+		var mode = $("#Gamemode").val();
+		if(mode === "nrm")
+		{
+			$("#StartingLife").val("20");
+		}
+		else if(mode === "edh")
+		{
+			$("#StartingLife").val("40");
+		}
+		else if(mode === "tiny")
+		{
+			$("#StartingLife").val("25");
+		}
+		else
+		{
+			$("#StartingLife").val("30");
+		}
+	});
+	
+	// Reset Game
+	$( "#Reset" ).on( "click", function() {	
+		$(".btnClose").click();
+	});
+
+    var id = 0;
+	var count = images.length;
+	
+    for (x = 0; x < 1000 ; x++) {
+		$('body').delay(30000).fadeIn("xfast",function () {
+			id = id + 1;
+			if(id === count)
+			{
+				id = 0;
+			}
+			rotate(id);
+        });
+        
+    };
+});
+</script>
+</head>
+<body>
+<div class="container">
+	<input id="PlayerCount" hidden value="0">
+	<input id="StartingLife" hidden value="20">
+	<div id="Header">
+		<div class="menuBox">
+			<div class="row center">
+				<h1 class="shadow-white">MTG Life Counter</h1>
+			</div>
+			<div class="row center">
+				<button id="Reset">Reset Game</button>
+				<button id="AddPlayer">Add Player</button>
+				<br/>
+				<br/>
+				<span class="shadow-white">Mode:</span>
+				<select id="Gamemode">
+				  <option value="nrm">Normal</option>
+				  <option value="thg">Two-headed Giant</option>
+				  <option value="edh">EDH</option>
+				  <option value="tiny">Tiny Leaders</option>
+				</select>
+			</div>
+
+		</div>
+		<!--<div class="menuBox">
+			<div class="row center timerBox">
+				<button class="timerBtn" id="StartStopTimer">Start</button>
+				<button class="timerBtn" id="ResetTimer">Reset</button>				
+			</div>
+			<div class="row center">
+				<span id="Time">01:00</span>
+				<br/>
+				<br/>
+			</div>
+		</div>-->
+	</div>
+	<div id="Main" class="center">
+	</div>
+</div>
+</body>
+</html>
