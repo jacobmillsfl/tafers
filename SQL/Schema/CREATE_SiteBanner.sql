@@ -1,4 +1,4 @@
-USE opendevtools;
+USE tafers;
 
 CREATE TABLE SiteBanner (
 id INT AUTO_INCREMENT,

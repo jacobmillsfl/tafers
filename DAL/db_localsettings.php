@@ -9,7 +9,7 @@
 $servername = "localhost";
 $username = "webapp";
 $password = "password";
-$dbname = "opendevtools";
+$dbname = "tafers";
 
 $smtpHost = "smtp.gmail.com";
 $smtpUsername = "opendevtools@gmail.com";
