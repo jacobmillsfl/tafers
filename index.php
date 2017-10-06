@@ -1,3 +1,18 @@
+<?php
+/**
+ * Author: Jacob Mills
+ * Date: 10/05/2017
+ * Description: This file is the landing page for tafers
+ */
+
+
+
+include("DAL/SiteBanner.php");
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,35 +57,43 @@
 </nav>
 
 <!-- Header -->
-<header class="intro-header">
-    <div class="container">
-        <div class="intro-message">
-            <h1>TAFERS DOT NET</h1>
-            <h3>Coming Soon</h3>
-            <hr class="intro-divider">
-            <ul class="list-inline intro-social-buttons">
-                <li class="list-inline-item">
-                    <a href="#" class="btn btn-secondary btn-lg">
-                        <i class="fa fa-twitter fa-fw"></i>
-                        <span class="network-name">Twitter</span>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="btn btn-secondary btn-lg">
-                        <i class="fa fa-github fa-fw"></i>
-                        <span class="network-name">Github</span>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="#" class="btn btn-secondary btn-lg">
-                        <i class="fa fa-linkedin fa-fw"></i>
-                        <span class="network-name">Linkedin</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
+<?php
+$banner = new SiteBanner(1);
+
+
+echo "<header class=\"intro-header\" style=\"background: url(" . $banner->getImgUrl() . ") no-repeat center center;\">";
+echo "<div class=\"container\">";
+echo "<div class=\"intro-message\">";
+echo "<h1>" . $banner->getTitle() . "</h1>";
+echo "<h3>" . $banner->getMessage() . "</h3>";
+echo "<hr class=\"intro-divider\">";
+echo "<ul class=\"list-inline intro-social-buttons\">";
+echo "<li class=\"list-inline-item\">";
+echo "<a href=\"#\" class=\"btn btn-secondary btn-lg\">";
+echo "<i class=\"fa fa-twitter fa-fw\"></i>";
+echo "<span class=\"network-name\">Twitter</span>";
+echo "</a>";
+echo "</li>";
+echo "<li class=\"list-inline-item\">";
+echo "<a href=\"#\" class=\"btn btn-secondary btn-lg\">";
+echo "<i class=\"fa fa-github fa-fw\"></i>";
+echo "<span class=\"network-name\">Github</span>";
+echo "</a>";
+echo "</li>";
+echo "<li class=\"list-inline-item\">";
+echo "<a href=\"#\" class=\"btn btn-secondary btn-lg\">";
+echo "<i class=\"fa fa-linkedin fa-fw\"></i>";
+echo "<span class=\"network-name\">Linkedin</span>";
+echo "</a>";
+echo "</li>";
+echo "</ul>";
+echo "</div>";
+echo "</div>";
+echo "</header>";
+
+?>
+
+
 
 <!-- Page Content -->
 <section id="LifeCounter" class="content-section-a">
