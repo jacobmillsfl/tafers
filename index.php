@@ -61,7 +61,7 @@ include("DAL/SiteBanner.php");
 $banner = new SiteBanner(1);
 
 
-echo "<header class=\"intro-header\" style=\"background: url(" . $banner->getImgUrl() . ") no-repeat center center;\">";
+echo "<header class=\"intro-header\" style=\"background: url(" . $banner->getImgUrl() . ") no-repeat center center; background-size: cover;\">";
 echo "<div class=\"container\">";
 echo "<div class=\"intro-message\">";
 echo "<h1>" . $banner->getTitle() . "</h1>";
