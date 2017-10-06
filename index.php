@@ -93,8 +93,6 @@ echo "</header>";
 
 ?>
 
-
-
 <!-- Page Content -->
 <section id="LifeCounter" class="content-section-a">
 
