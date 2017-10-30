@@ -50,6 +50,7 @@ include("DAL/SiteBanner.php");
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#LifeCounter">LifeCounter</a>
+					<a class="nav-link" href="#TAF CTF">TAF CTF</a>
                 </li>
             </ul>
         </div>
@@ -115,7 +116,7 @@ echo "</header>";
     <!-- /.container -->
 </section>
 
-<section class="content-section-b">
+<section id="TAF CTF" class="content-section-b">
 
     <div class="container">
 
@@ -123,11 +124,13 @@ echo "</header>";
             <div class="col-lg-5 mr-auto order-lg-2">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
-                <h2 class="section-heading">Coming Soon</h2>
-                <p class="lead">Content goes here</p>
+                <h2 class="section-heading">TAF CTF</h2>
+                <p class="lead">Register for our 
+				<a target="https://ctf.tafers.net/" href="https://ctf.tafers.net/">TAF CTF</a> 
+				and compete today!</p>
             </div>
             <div class="col-lg-5 ml-auto order-lg-1">
-                <img class="img-fluid" src="images/sorin.jpg" alt="">
+                <img class="img-fluid" src="images/Tafers2-02.png" alt="TAF CTF">
             </div>
         </div>
 
