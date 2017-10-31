@@ -50,8 +50,11 @@ include("DAL/SiteBanner.php");
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#LifeCounter">LifeCounter</a>
-					<a class="nav-link" href="#TAF CTF">TAF CTF</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#TAFCTF">TAF CTF</a>
+                </li>
+
             </ul>
         </div>
     </div>
@@ -116,7 +119,7 @@ echo "</header>";
     <!-- /.container -->
 </section>
 
-<section id="TAF CTF" class="content-section-b">
+<section id="TAFCTF" class="content-section-b">
 
     <div class="container">
 
