@@ -1,11 +1,16 @@
 <?php
+
+include_once("DAL/files.php");
+
+
 if(isset($_FILES['file'])){
     $errors= array();
     $file_name = $_FILES['file']['name'];
     $file_size = $_FILES['file']['size'];
     $file_tmp = $_FILES['file']['tmp_name'];
     $file_type = $_FILES['file']['type'];
-    $file_ext=strtolower(end(explode('.',$_FILES['file']['name'])));
+    $tmp = explode('.',$file_name);
+    $file_ext=strtolower(end($tmp));
 
     //$expensions= array("zip","tar","7z",);
 
@@ -20,10 +25,33 @@ if(isset($_FILES['file'])){
 
     if(empty($errors)==true) {
         move_uploaded_file($file_tmp,"files/".$file_name);
+
+        // Save to database
+        $currentDate = date('Y-m-d H:i:s');
+        $ip = getenv('HTTP_CLIENT_IP')?:
+            getenv('HTTP_X_FORWARDED_FOR')?:
+                getenv('HTTP_X_FORWARDED')?:
+                    getenv('HTTP_FORWARDED_FOR')?:
+                        getenv('HTTP_FORWARDED')?:
+                            getenv('REMOTE_ADDR');
+
+        $file = new Files();
+        $file->setFileName($file_name);
+        $file->setFileSize($file_size);
+        $file->setFileExtension($file_ext);
+        $file->setFileType($file_type);
+        $file->setUploadDate($currentDate);
+        $file->setUploadIP($ip);
+
+        $file->save();
+
+
         echo "Success";
     }else{
         print_r($errors);
     }
+
+
 }
 ?>
 <html>
@@ -32,7 +60,7 @@ if(isset($_FILES['file'])){
 <form action = "" method = "POST" enctype = "multipart/form-data">
     <input type = "file" name = "file" />
     <input type = "submit"/>
-    <?php if (isset($_POST['file'])): ?>
+    <?php if (isset($_FILES['file'])): ?>
     <ul>
         <li>Sent file: <?php echo $_FILES['file']['name'];  ?>
         <li>File size: <?php echo $_FILES['file']['size'];  ?>
