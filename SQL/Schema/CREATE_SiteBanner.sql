@@ -1,6 +1,6 @@
 USE tafers;
 
-CREATE TABLE SiteBanner (
+CREATE TABLE `tafers`.`SiteBanner` (
 id INT AUTO_INCREMENT,
 title VARCHAR(255),
 message VARCHAR(255),
