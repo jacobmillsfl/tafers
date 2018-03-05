@@ -13,7 +13,7 @@ require_once 'src/PHPMailer.php';
 require_once 'src/SMTP.php';
 require_once 'src/Exception.php';
 
-include("../DAL/db_localsettings.php");
+include_once("../DAL/db_localsettings.php");
 
 
 $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
@@ -30,7 +30,7 @@ try {
 
     //Recipients
     $mail->setFrom($smtpUsername, 'OpenDevTools');
-    $mail->addAddress('recipientaddress@site.com');
+    $mail->addAddress('jjm15e@my.fsu.edu');
     $mail->addReplyTo($smtpUsername, 'NoReply');
     //$mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
