@@ -34,7 +34,8 @@ class Authentication
         ];
         $hash = password_hash($paramPassword, PASSWORD_BCRYPT, $options);
 
-        $user = new User(0,$paramUsername,$hash,$paramEmail,$paramBio,$paramLocation,$paramImgUrl,$paramGithubUrl,$paramCreateDate,$paramRoleId);
+
+        $user = new User(0,$paramUsername,$hash,$paramEmail,$paramImgUrl,$paramCreateDate,$paramRoleId);
         $user->save();
 
         return $user;
