@@ -22,6 +22,7 @@ class User {
 	protected $password;
 	protected $email;
 	protected $imgUrl;
+	protected $createDate;
 	protected $roleId;
 
 
@@ -37,8 +38,8 @@ class User {
 			case 1:
 				self::__constructPK( $argv[0] );
 				break;
-			case 6:
-				self::__constructFull( $argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5] );
+			case 7:
+				self::__constructFull( $argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6] );
 		}
 	}
 
@@ -49,6 +50,7 @@ class User {
 		$this->password = "";
 		$this->email = "";
 		$this->imgUrl = "";
+		$this->createDate = "";
 		$this->roleId = 0;
 	}
 
@@ -58,12 +60,13 @@ class User {
 	}
 
 
-	public function __constructFull($paramId,$paramUsername,$paramPassword,$paramEmail,$paramImgUrl,$paramRoleId) {
+	public function __constructFull($paramId,$paramUsername,$paramPassword,$paramEmail,$paramImgUrl,$paramCreateDate,$paramRoleId) {
 		$this->id = $paramId;
 		$this->username = $paramUsername;
 		$this->password = $paramPassword;
 		$this->email = $paramEmail;
 		$this->imgUrl = $paramImgUrl;
+		$this->createDate = $paramCreateDate;
 		$this->roleId = $paramRoleId;
 	}
 
@@ -102,6 +105,12 @@ class User {
 	public function setImgUrl($value){
 		$this->imgUrl = $value;
 	}
+	public function getCreateDate(){
+		return $this->createDate;
+	}
+	public function setCreateDate($value){
+		$this->createDate = $value;
+	}
 	public function getRoleId(){
 		return $this->roleId;
 	}
@@ -131,6 +140,7 @@ class User {
 		 $this->setPassword($row['password']);
 		 $this->setEmail($row['email']);
 		 $this->setImgUrl($row['imgUrl']);
+		 $this->setCreateDate($row['createDate']);
 		 $this->setRoleId($row['roleId']);
 		}
 	}
@@ -152,13 +162,14 @@ class User {
 	private function insert() {
 		include(self::getDbSettings());
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		$stmt = $conn->prepare('CALL usp_User_Add(?,?,?,?,?)');
+		$stmt = $conn->prepare('CALL usp_User_Add(?,?,?,?,?,?)');
 		$arg1 = $this->getUsername();
 		$arg2 = $this->getPassword();
 		$arg3 = $this->getEmail();
 		$arg4 = $this->getImgUrl();
-		$arg5 = $this->getRoleId();
-		$stmt->bind_param('ssssi',$arg1,$arg2,$arg3,$arg4,$arg5);
+		$arg5 = $this->getCreateDate();
+		$arg6 = $this->getRoleId();
+		$stmt->bind_param('sssssi',$arg1,$arg2,$arg3,$arg4,$arg5,$arg6);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -173,14 +184,15 @@ class User {
 	private function update() {
 		include(self::getDbSettings());
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		$stmt = $conn->prepare('CALL usp_User_Update(?,?,?,?,?,?)');
+		$stmt = $conn->prepare('CALL usp_User_Update(?,?,?,?,?,?,?)');
 		$arg1 = $this->getId();
 		$arg2 = $this->getUsername();
 		$arg3 = $this->getPassword();
 		$arg4 = $this->getEmail();
 		$arg5 = $this->getImgUrl();
-		$arg6 = $this->getRoleId();
-		$stmt->bind_param('issssi',$arg1,$arg2,$arg3,$arg4,$arg5,$arg6);
+		$arg6 = $this->getCreateDate();
+		$arg7 = $this->getRoleId();
+		$stmt->bind_param('isssssi',$arg1,$arg2,$arg3,$arg4,$arg5,$arg6,$arg7);
 		$stmt->execute();
 	}
 
@@ -208,7 +220,7 @@ class User {
 		if ($result->num_rows > 0) {
 			$arr = array();
 			while ($row = $result->fetch_assoc()) {
-				$user = new User($row['id'],$row['username'],$row['password'],$row['email'],$row['imgUrl'],$row['roleId']);
+				$user = new User($row['id'],$row['username'],$row['password'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
 				$arr[] = $user;
 			}
 			return $arr;
@@ -228,17 +240,18 @@ class User {
 	}
 
 
-	public static function search($paramId,$paramUsername,$paramPassword,$paramEmail,$paramImgUrl,$paramRoleId) {
+	public static function search($paramId,$paramUsername,$paramPassword,$paramEmail,$paramImgUrl,$paramCreateDate,$paramRoleId) {
 		include(self::getDbSettings());
 		$conn = new mysqli($servername, $username, $password, $dbname);
-		$stmt = $conn->prepare('CALL usp_User_Search(?,?,?,?,?,?)');
+		$stmt = $conn->prepare('CALL usp_User_Search(?,?,?,?,?,?,?)');
 		$arg1 = User::setNullValue($paramId);
 		$arg2 = User::setNullValue($paramUsername);
 		$arg3 = User::setNullValue($paramPassword);
 		$arg4 = User::setNullValue($paramEmail);
 		$arg5 = User::setNullValue($paramImgUrl);
-		$arg6 = User::setNullValue($paramRoleId);
-		$stmt->bind_param('issssi',$arg1,$arg2,$arg3,$arg4,$arg5,$arg6);
+		$arg6 = User::setNullValue($paramCreateDate);
+		$arg7 = User::setNullValue($paramRoleId);
+		$stmt->bind_param('isssssi',$arg1,$arg2,$arg3,$arg4,$arg5,$arg6,$arg7);
 		$stmt->execute();
 
 		$result = $stmt->get_result();
@@ -246,7 +259,7 @@ class User {
 		if ($result->num_rows > 0) {
 			$arr = array();
 			while ($row = $result->fetch_assoc()) {
-				$user = new User($row['id'],$row['username'],$row['password'],$row['email'],$row['imgUrl'],$row['roleId']);
+				$user = new User($row['id'],$row['username'],$row['password'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
 				$arr[] = $user;
 			}
 			return $arr;

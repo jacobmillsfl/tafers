@@ -33,8 +33,9 @@ CREATE TABLE `tafers`.`User` (
 id INT AUTO_INCREMENT,
 username VARCHAR(255),
 password VARCHAR(255),
-email VARCHAR(255),
+email VARCHAR(512),
 imgUrl VARCHAR(512),
+createDate DATETIME,
 roleId INT,
 CONSTRAINT pk_User_id PRIMARY KEY (id),
 CONSTRAINT fk_User_roleId_Role_id FOREIGN KEY (roleId) REFERENCES Role (id)
@@ -58,6 +59,7 @@ BEGIN
 		`User`.`password` AS `password`,
 		`User`.`email` AS `email`,
 		`User`.`imgUrl` AS `imgUrl`,
+		`User`.`createDate` AS `createDate`,
 		`User`.`roleId` AS `roleId`
 	FROM `User`
 	WHERE 		`User`.`id` = paramid;
@@ -74,6 +76,7 @@ BEGIN
 		`User`.`password` AS `password`,
 		`User`.`email` AS `email`,
 		`User`.`imgUrl` AS `imgUrl`,
+		`User`.`createDate` AS `createDate`,
 		`User`.`roleId` AS `roleId`
 	FROM `User`;
 END //
@@ -84,13 +87,14 @@ CREATE PROCEDURE `tafers`.`usp_User_Add`
 (
 	 IN paramusername VARCHAR(255),
 	 IN parampassword VARCHAR(255),
-	 IN paramemail VARCHAR(255),
+	 IN paramemail VARCHAR(512),
 	 IN paramimgUrl VARCHAR(512),
+	 IN paramcreateDate DATETIME,
 	 IN paramroleId INT
 )
 BEGIN
-	INSERT INTO `User` (username,password,email,imgUrl,roleId)
-	VALUES (paramusername, parampassword, paramemail, paramimgUrl, paramroleId);
+	INSERT INTO `User` (username,password,email,imgUrl,createDate,roleId)
+	VALUES (paramusername, parampassword, paramemail, paramimgUrl, paramcreateDate, paramroleId);
 	-- Return last inserted ID as result
 	SELECT LAST_INSERT_ID() as id;
 END //
@@ -103,8 +107,9 @@ CREATE PROCEDURE `tafers`.`usp_User_Update`
 	IN paramid INT,
 	IN paramusername VARCHAR(255),
 	IN parampassword VARCHAR(255),
-	IN paramemail VARCHAR(255),
+	IN paramemail VARCHAR(512),
 	IN paramimgUrl VARCHAR(512),
+	IN paramcreateDate DATETIME,
 	IN paramroleId INT
 )
 BEGIN
@@ -113,6 +118,7 @@ BEGIN
 		,password = parampassword
 		,email = paramemail
 		,imgUrl = paramimgUrl
+		,createDate = paramcreateDate
 		,roleId = paramroleId
 	WHERE		`User`.`id` = paramid;
 END //
@@ -137,8 +143,9 @@ CREATE PROCEDURE `tafers`.`usp_User_Search`
 	IN paramid INT,
 	IN paramusername VARCHAR(255),
 	IN parampassword VARCHAR(255),
-	IN paramemail VARCHAR(255),
+	IN paramemail VARCHAR(512),
 	IN paramimgUrl VARCHAR(512),
+	IN paramcreateDate DATETIME,
 	IN paramroleId INT
 )
 BEGIN
@@ -148,6 +155,7 @@ BEGIN
 		`User`.`password` AS `password`,
 		`User`.`email` AS `email`,
 		`User`.`imgUrl` AS `imgUrl`,
+		`User`.`createDate` AS `createDate`,
 		`User`.`roleId` AS `roleId`
 	FROM `User`
 	WHERE
@@ -156,6 +164,7 @@ BEGIN
 		AND COALESCE(User.`password`,'') = COALESCE(parampassword,User.`password`,'')
 		AND COALESCE(User.`email`,'') = COALESCE(paramemail,User.`email`,'')
 		AND COALESCE(User.`imgUrl`,'') = COALESCE(paramimgUrl,User.`imgUrl`,'')
+		AND COALESCE(CAST(User.`createDate` AS DATE), CAST(NOW() AS DATE)) = COALESCE(CAST(paramcreateDate AS DATE),CAST(User.`createDate` AS DATE), CAST(NOW() AS DATE))
 		AND COALESCE(User.`roleId`,0) = COALESCE(paramroleId,User.`roleId`,0);
 END //
 DELIMITER ;
