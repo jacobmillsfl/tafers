@@ -25,15 +25,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $passwordconf = $_POST["passwordconf"];
     $email = $_POST["email"];
-    $location = $_POST["location"];
     $imgUrl = $_POST["imgUrl"];
-    $githubUrl = $_POST["githubUrl"];
-    $bio = $_POST["bio"];
 
 
 
     // 1) Ensure username is not already taken
     $user = User::lookup($username);
+
     if ($user != null) {
         // This username is already taken
         $errorMessage = "The provided username is already in use. Please try another username.";
@@ -44,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     else {
         $currentDate = date('Y-m-d H:i:s');
         $defaultRoleId = 1; // This corresponds to the GENERAL default Role (Not Admin, Moderator, or Blogger)
-        $user = Authentication::createUser($username,$password,$email,$bio,$location,$imgUrl,$githubUrl,$currentDate,$defaultRoleId);
+        $user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
 
         if ($user == null) {
             // Something went wrong while attempting to create this user
@@ -59,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             Mailer::sendRegistrationEmail($user->getEmail(),$user->getUsername());
 
             // Redirect to account page
-            header("location: /account");
+            header("location: /");
         }
     }
 }
@@ -139,13 +137,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                            data-validation-required-message="Please enter your email address." maxlength="255">
                                 </div>
                             </div>
-                            <div class="control-group form-group col-lg-6 ">
-                                <div class="controls">
-                                    <strong>Location:</strong>
-                                    <br/><small>Please enter your location</small>
-                                    <input type="text" class="form-control" id="location" name="location" maxlength="255">
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row">
                             <div class="control-group form-group col-lg-6 ">
@@ -153,24 +145,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <strong>User Avatar:</strong>
                                     <br/><small>Please enter the URL of an image to associate with your profile</small>
                                     <input type="text" class="form-control" id="imgUrl" name="imgUrl" maxlength="511">
-                                </div>
-                            </div>
-                            <div class="control-group form-group col-lg-6 ">
-                                <div class="controls">
-                                    <strong>GitHub URL:</strong>
-                                    <br/><small>Please enter your GitHub URL</small>
-                                    <input type="text" class="form-control" id="githubUrl" name="githubUrl" maxlength="511">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="control-group form-group col-lg-12">
-                                <div class="controls">
-                                    <strong>Background:</strong>
-                                    <br/><small>Please enter background information about yourself</small>
-                                    <textarea rows="10" cols="100" class="form-control" id="bio" name="bio" maxlength="1047"
-                                              style="resize:none"></textarea>
                                 </div>
                             </div>
                         </div>

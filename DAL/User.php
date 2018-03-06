@@ -268,4 +268,23 @@ class User {
 			die("The query yielded zero results.No rows found.");
 		}
 	}
+
+    public static function lookup($paramUsername) {
+        include(self::getDbSettings());
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        $stmt = $conn->prepare('CALL usp_User_Lookup(?)');
+        $arg1 = User::setNullValue($paramUsername);
+        $stmt->bind_param('s',$arg1);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        if (!$result) die($conn->error);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return new User($row['id'],$row['username'],$row['password'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
+        }
+        else {
+            return 0;
+        }
+    }
 }

@@ -5,7 +5,11 @@
  * Description: This file is the landing page for tafers
  */
 
+session_start();
+
 include("DAL/SiteBanner.php");
+include("DAL/User.php");
+include("Utilities/SessionManager.php");
 
 ?>
 
@@ -52,6 +56,8 @@ echo "</ul>";
 echo "</div>";
 echo "</div>";
 echo "</header>";
+
+
 
 ?>
 
@@ -162,20 +168,13 @@ echo "</header>";
 <!-- /.banner -->
 
 <!-- Footer -->
-<footer>
-    <div class="container">
-        <ul class="list-inline">
-            <li class="list-inline-item">
-                <a href="#">Home</a>
-            </li>
-            <li class="footer-menu-divider list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-                <a href="#LifeCounter">About</a>
-            </li>
-        </ul>
-        <p class="copyright text-muted small">Copyright &copy; Tafers 2017. All Rights Reserved</p>
-    </div>
-</footer>
+<?php
+
+include('footer.php');
+
+?>
+
+
 
 <!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>

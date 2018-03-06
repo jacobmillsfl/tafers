@@ -1,0 +1,7 @@
+use tafers;
+
+
+INSERT INTO Role(name,description)
+VALUES ('General','General purpose user'),
+       ('Admin','Admin user'),
+       ('Restricted','Read only user with restricted permissions');
