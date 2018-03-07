@@ -17,6 +17,8 @@ class Authentication
         $user = User::lookup($username);
         if($user != null && password_verify($password, $user->getPassword())) {
             SessionManager::setUserId($user->getId());
+            SessionManager::setRoleId($user->getRoleId());
+            SessionManager::setUserName($user->getUsername());
             return true;
         }
         else {
@@ -58,6 +60,18 @@ class Authentication
         $user = new User($userId);
         $user->setPassword($hash);
         $user->save();
+    }
+
+
+    public static function checkFilePermissions()
+    {
+        $roleId = SessionManager::getUserRoleId();
+        if ($roleId == 0 || $roleId == 3) // Disallow not logged in or Restricted role
+        {
+            // Access denied
+            header('location: /');
+            die();
+        }
     }
 }
 

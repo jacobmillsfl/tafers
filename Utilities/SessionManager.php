@@ -8,23 +8,7 @@
 
 class SessionManager
 {
-
-/*  Examples
-
-    public static function getTestMessage() {
-        if (isset($_SESSION['msg']))
-            return $_SESSION['msg'];
-        else
-            return "";
-
-    }
-
-    public static function setTestMessage($arg1){
-        $_SESSION['msg'] = $arg1;
-    }
-*/
-
-
+    // User ID
     public static function getUserId() {
         if (isset($_SESSION['userId']))
             return $_SESSION['userId'];
@@ -37,5 +21,39 @@ class SessionManager
         $_SESSION['userId'] = $arg1;
     }
 
+    // User Name
+    public static function getUserName() {
+        if (isset($_SESSION['userName']))
+            return $_SESSION['userName'];
+        else
+            return "";
+
+    }
+
+    public static function setUserName($arg1){
+        $_SESSION['userName'] = $arg1;
+    }
+
+    // User Role ID
+    public static function getUserRoleId() {
+        if (isset($_SESSION['roleId']))
+            return $_SESSION['roleId'];
+        else
+            return 0;
+
+    }
+
+    public static function setRoleId($arg1){
+        $_SESSION['roleId'] = $arg1;
+    }
+
+    
+
+    // Clear Session Variables
+    public static function clearSessionVars() {
+        self::setUserId(0);
+        self::setRoleId(0);
+        self::setUserName("");
+    }
 }
 

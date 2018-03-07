@@ -4,6 +4,26 @@ session_start();
 
 include_once("DAL/File.php");
 include_once("Utilities/SessionManager.php");
+include_once("Utilities/Authentication.php");
+
+Authentication::checkFilePermissions();
+
+$maxFileSize = 2147483648; // Roughly 2 GB
+$errors= array();
+$file_name = "";
+$file_size = "";
+$file_type = "";
+$file_ext= "";
+$userId = SessionManager::getUserId();
+$currentDate = date('Y-m-d H:i:s');
+$ip = getenv('HTTP_CLIENT_IP')?:
+    getenv('HTTP_X_FORWARDED_FOR')?:
+        getenv('HTTP_X_FORWARDED')?:
+            getenv('HTTP_FORWARDED_FOR')?:
+                getenv('HTTP_FORWARDED')?:
+                    getenv('REMOTE_ADDR');
+$isPublic = false;
+$file = new File();
 
 if(isset($_FILES['file'])){
     $errors= array();
@@ -13,36 +33,30 @@ if(isset($_FILES['file'])){
     $file_type = $_FILES['file']['type'];
     $tmp = explode('.',$file_name);
     $file_ext=strtolower(end($tmp));
+    $isPublic = isset($_POST['filePublic']) ? 1 : 0;
 
     //$expensions= array("zip","tar","7z",);
-
     //if(in_array($file_ext,$expensions)=== false){
     //    $errors[]="extension not allowed, please choose a JPEG or PNG file.";
     //}
 
     // Enable large file uploads
-    if($file_size > 2147483648) {
+    if($file_size > $maxFileSize) {
         $errors[]='File size must be less than 2 GB';
+    }
+    else if ($file_size == 0){
+        $errors[]='No file selected';
     }
 
     if(empty($errors)==true) {
-        $success = move_uploaded_file($file_tmp,"files/".$file_name);
+        if ($isPublic == 1)
+            $success = move_uploaded_file($file_tmp,"files/".$file_name);
+        else
+            $success = move_uploaded_file($file_tmp,"../privateFiles/".$file_name);
 
         if ($success)
         {
             // Save to database
-            $currentDate = date('Y-m-d H:i:s');
-            $ip = getenv('HTTP_CLIENT_IP')?:
-                getenv('HTTP_X_FORWARDED_FOR')?:
-                    getenv('HTTP_X_FORWARDED')?:
-                        getenv('HTTP_FORWARDED_FOR')?:
-                            getenv('HTTP_FORWARDED')?:
-                                getenv('REMOTE_ADDR');
-
-
-            $userId = SessionManager::getUserId();
-            echo $userId;
-            $file = new File();
             $file->setUserId($userId);
             $file->setFileName($file_name);
             $file->setFileSize($file_size);
@@ -50,10 +64,13 @@ if(isset($_FILES['file'])){
             $file->setFileType($file_type);
             $file->setUploadDate($currentDate);
             $file->setUploadIP($ip);
+            $file->setIsPublic($isPublic);
             $file->save();
         }
-
-        echo $success == true ? "success" : "unsuccessful";
+        else
+        {
+            $errors[]='Unable to create file. Please check system permissions.';
+        }
     }else{
         print_r($errors);
     }
@@ -61,21 +78,83 @@ if(isset($_FILES['file'])){
 
 }
 ?>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
+<?php include('head.php'); ?>
 <body>
+<?php include('nav.php'); ?>
 
-<form action = "" method = "POST" enctype = "multipart/form-data">
-    <input type = "file" name = "file" />
-    <input type = "submit"/>
-    <?php if (isset($_FILES['file'])): ?>
-    <ul>
-        <li>Sent file: <?php echo $_FILES['file']['name'];  ?>
-        <li>File size: <?php echo $_FILES['file']['size'];  ?>
-        <li>File type: <?php echo $_FILES['file']['type'] ?>
-    </ul>
+<!-- Page Content -->
+<section id="Upload" class="content-section-b">
 
-    <?php endif ?>
-</form>
+    <div class="container">
+        <div class="row mt-lg-5">
+            <div class="col-lg-12 ml-auto">
+                <form action="upload.php" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-lg-6" >
+                            <label for="fileInput">File</label><br/>
+                            <input id ="fileInput" type = "file" name = "file" />
+                            <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxFileSize; ?>">
+                        </div>
+                        <div class="col-lg-6" >
+                            <label for="filePublic">Is Public?</label><br/>
+                            <input id="filePublic" type="checkbox" name ="filePublic" />
+                        </div>
+                        <div class="col-lg-12 mt-5">
+                            <button type="submit" class="btn btn-primary btn-block float-left">Upload</button>
+                        </div>
+                    </div>
+                    <br/><br/><br/><br/>
+                    <?php if (isset($_FILES['file']) && empty($errors)==true): ?>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h3>File Statistics</h3><br/>
+                            <ul>
+                                <li>UserID: <?php echo $file->getUserId();  ?>
+                                <li>User: <?php echo SessionManager::getUserName();  ?>
+                                <li>FileName: <?php echo $file->getFileName();  ?>
+                                <li>FileSize: <?php echo $file->getFileSize();  ?>
+                                <li>FileExtension: <?php echo $file->getFileExtension();  ?>
+                                <li>FileType: <?php echo $file->getFileType();  ?>
+                                <li>UploadDate: <?php echo $file->getUploadDate();  ?>
+                                <li>UploadIP: <?php echo $file->getUploadIP();  ?>
+                                <li>IsPublic: <?php echo $file->getIsPublic() == 1 ? "Yes" : "No";  ?>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <?php elseif (empty($errors)==false): ?>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3>Errors</h3><br/>
+                                <?php
+                                    echo "<ol>";
+                                    foreach ($errors as $error)
+                                    {
+                                        echo "<li>" . $error . "</li>";
+                                    }
+                                    echo "</ol>";
+                                ?>
+                            </div>
+                        </div>
+                    <?php endif ?>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</section>
+
+<!-- Footer -->
+<?php
+
+include('footer.php');
+
+?>
 
 </body>
 </html>

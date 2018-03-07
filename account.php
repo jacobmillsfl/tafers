@@ -22,7 +22,7 @@ else{
 <html lang="en">
 <?php include "head.php" ?>
 <body>
-<?php include "header.php" ?>
+<?php include "nav.php" ?>
 
 <!-- Page Content -->
 <div class="container">

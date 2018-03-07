@@ -10,7 +10,7 @@ require_once 'PHPMailer/src/Exception.php';
 class Mailer
 {
     // This is for local purposes only! In hosted environments the db_settings.php file should be outside of the webroot, such as: include("/outside-webroot/db_settings.php");
-    protected static function getMailSettings() { return "mail_localsettings.php"; }
+    protected static function getMailSettings() { return "../DAL/db_localsettings.php"; }
 
     public static function sendRegistrationEmail($recipientEmail,$newusername) {
         include_once(self::getMailSettings());

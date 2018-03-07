@@ -21,13 +21,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     // Step 2) Use Authentication::createUser() with the form fields to create new user
     // Step 3) Use SessionManager::setUserId() to store the new userID in session
     // Step 4) Redirect to /account.php for the newly created user
-    $username = $_POST["username"];
+    $username = strip_tags($_POST["username"]);
     $password = $_POST["password"];
     $passwordconf = $_POST["passwordconf"];
-    $email = $_POST["email"];
-    $imgUrl = $_POST["imgUrl"];
-
-
+    $email = strip_tags($_POST["email"]);
+    $imgUrl = strip_tags($_POST["imgUrl"]);
 
     // 1) Ensure username is not already taken
     $user = User::lookup($username);
@@ -41,7 +39,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $currentDate = date('Y-m-d H:i:s');
-        $defaultRoleId = 1; // This corresponds to the GENERAL default Role (Not Admin, Moderator, or Blogger)
+        $defaultRoleId = 1; // This corresponds to the GENERAL Role
+
+        if ($imgUrl == "") {
+            $imgUrl = "/images/missing.png";
+        }
+
         $user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
 
         if ($user == null) {
@@ -93,11 +96,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         echo "</div>";
                     }
                     ?>
-
-
-
-
-
 
                     <br/>
                     <form name="register" id="registerForm" method="post" validate>
@@ -157,9 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
         <!-- /.container -->
-
-
+        
         <?php include "footer.php" ?>
-
     </body>
 </html>
