@@ -12,12 +12,26 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#LifeCounter">LifeCounter</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#TAFCTF">TAF CTF</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="#LifeCounter">LifeCounter</a>
+                </li>
+                <?php if (SessionManager::getUserId() > 0): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account.php">Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout.php">LogOut</a>
+                    </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register.php">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login.php">LogIn</a>
+                    </li>
+                <?php endif ?>
             </ul>
         </div>
     </div>

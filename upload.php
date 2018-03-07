@@ -1,7 +1,9 @@
 <?php
 
-include_once("DAL/files.php");
+session_start();
 
+include_once("DAL/File.php");
+include_once("Utilities/SessionManager.php");
 
 if(isset($_FILES['file'])){
     $errors= array();
@@ -24,29 +26,34 @@ if(isset($_FILES['file'])){
     }
 
     if(empty($errors)==true) {
-        move_uploaded_file($file_tmp,"files/".$file_name);
+        $success = move_uploaded_file($file_tmp,"files/".$file_name);
 
-        // Save to database
-        $currentDate = date('Y-m-d H:i:s');
-        $ip = getenv('HTTP_CLIENT_IP')?:
-            getenv('HTTP_X_FORWARDED_FOR')?:
-                getenv('HTTP_X_FORWARDED')?:
-                    getenv('HTTP_FORWARDED_FOR')?:
-                        getenv('HTTP_FORWARDED')?:
-                            getenv('REMOTE_ADDR');
-
-        $file = new Files();
-        $file->setFileName($file_name);
-        $file->setFileSize($file_size);
-        $file->setFileExtension($file_ext);
-        $file->setFileType($file_type);
-        $file->setUploadDate($currentDate);
-        $file->setUploadIP($ip);
-
-        $file->save();
+        if ($success)
+        {
+            // Save to database
+            $currentDate = date('Y-m-d H:i:s');
+            $ip = getenv('HTTP_CLIENT_IP')?:
+                getenv('HTTP_X_FORWARDED_FOR')?:
+                    getenv('HTTP_X_FORWARDED')?:
+                        getenv('HTTP_FORWARDED_FOR')?:
+                            getenv('HTTP_FORWARDED')?:
+                                getenv('REMOTE_ADDR');
 
 
-        echo "Success";
+            $userId = SessionManager::getUserId();
+            echo $userId;
+            $file = new File();
+            $file->setUserId($userId);
+            $file->setFileName($file_name);
+            $file->setFileSize($file_size);
+            $file->setFileExtension($file_ext);
+            $file->setFileType($file_type);
+            $file->setUploadDate($currentDate);
+            $file->setUploadIP($ip);
+            $file->save();
+        }
+
+        echo $success == true ? "success" : "unsuccessful";
     }else{
         print_r($errors);
     }

@@ -32,7 +32,7 @@ class Mailer
             $mail->addReplyTo($smtpUsername, 'NoReply');
 
             //Content
-            $body = '<p>Greetings! An account was recently created on <a href="https://tafers.net">www.opendevtools.org</a> using this email address. Your username is: <b>' . $newusername . '</b></p>';
+            $body = '<p>Greetings! An account was recently created on <a href="https://tafers.net">tafers.net</a> using this email address. Your username is: <b>' . $newusername . '</b></p>';
             $body = $body . '<br/><p>If you believe you have received this message in error, please contact our <a href="mailto:opendevtools@gmail.com">Site Administrators</a>.</p>';
 
             $mail->isHTML(true);                                  // Set email format to HTML
