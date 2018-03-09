@@ -8,7 +8,7 @@ $userId = SessionManager::getUserId();
 // If the user is not logged in, they should not have access to this page
 if ($userId == 0)
 {
-    header("location:/login");
+    header("location:/login.php");
 }
 else{
     $user = new User($userId);
@@ -25,7 +25,7 @@ else{
 <?php include "nav.php" ?>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container mt-5">
     <div class="row">
         <div class="col-lg-12 mb-4 mt-4">
             <h1>Account</h1>
@@ -36,7 +36,7 @@ else{
                     <div class="col-lg-3 col-sm-6">
                         <div>
                             <?php
-                            echo "<img class=\"img-responsive \" src=\"" . $user->getImgUrl() . "\" alt=\"avatar\" style=\"max-height:255px;max-width:255px;\" />";
+                            echo "<img class=\"img-responsive \" src=\"" . $user->getImgUrl() . "\" alt=\"avatar\" style=\"max-height:255px;max-width:100%;\" />";
                             ?>
                         </div>
                     </div>

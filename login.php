@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $success = Authentication::authLogin($username,$password);
     if ($success)
     {
-        header("location: /account");
+        header("location: /account.php");
     }
     else
     {
@@ -26,9 +26,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">

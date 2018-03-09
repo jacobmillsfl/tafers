@@ -54,13 +54,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         else {
             // Set session values for successful login
             $userId = $user->getId();
-            SessionManager::setUserId($userId);
+            Authentication::authLogin($username,$password);
 
             // Send registration email
-            Mailer::sendRegistrationEmail($user->getEmail(),$user->getUsername());
+            //Mailer::sendRegistrationEmail($user->getEmail(),$user->getUsername());
 
             // Redirect to account page
-            header("location: /");
+            header("location: /account.php");
         }
     }
 }
@@ -155,7 +155,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         </div>
         <!-- /.container -->
-        
+
         <?php include "footer.php" ?>
     </body>
 </html>
