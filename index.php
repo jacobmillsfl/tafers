@@ -62,33 +62,12 @@ echo "</header>";
 ?>
 
 <!-- Page Content -->
-<section id="LifeCounter" class="content-section-a">
+<section id="TAFCTF" class="content-section-a">
 
     <div class="container">
+
         <div class="row">
             <div class="col-lg-5 ml-auto">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">Magic The Gathering:<br>Life Counter</h2>
-                <p class="lead">Try our
-                    <a target="_blank" href="LifeCounter.html">LifeCounter</a>
-                    for Magic The Gathering.</p>
-            </div>
-            <div class="col-lg-5 mr-auto">
-                <img class="img-fluid" src="images/liliana.jpg" alt="">
-            </div>
-        </div>
-
-    </div>
-    <!-- /.container -->
-</section>
-
-<section id="TAFCTF" class="content-section-b">
-
-    <div class="container">
-
-        <div class="row">
-            <div class="col-lg-5 mr-auto order-lg-2">
                 <hr class="section-heading-spacer">
                 <div class="clearfix"></div>
                 <h2 class="section-heading">TAF CTF</h2>
@@ -98,6 +77,28 @@ echo "</header>";
             </div>
             <div class="col-lg-5 ml-auto order-lg-1">
                 <img class="img-fluid" src="images/Tafers2-02.png" alt="TAF CTF">
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container -->
+</section>
+
+<section id="LifeCounter" class="content-section-b">
+
+    <div class="container">
+	
+        <div class="row">
+            <div class="col-lg-5 mr-auto order-lg-2">
+                <hr class="section-heading-spacer">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">Magic The Gathering:<br>Life Counter</h2>
+                <p class="lead">Try our
+                    <a target="_blank" href="LifeCounter.html">LifeCounter</a>
+                    for Magic The Gathering.</p>
+            </div>
+            <div class="col-lg-5 mr-auto">
+                <img class="img-fluid" src="images/liliana.jpg" alt="">
             </div>
         </div>
 
