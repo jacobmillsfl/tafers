@@ -1,0 +1,8 @@
+
+INSERT INTO FileCategory(name,description)
+VALUES ('Ableton Live Set','This file category is for Ableton Live Sets that are shared amongst different digital audio workstations')
+      ,('Archives','This file category is for data to be stored as an archive')
+      ,('Documents','This file category is for textual documents, powerpoints, word, excel, etc')
+      ,('Music','This file category is for music files')
+      ,('Pictures','This file category is for pictures and other media')
+      ,('Other','This file category is for anything');

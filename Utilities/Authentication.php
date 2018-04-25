@@ -7,7 +7,6 @@
 
 include_once("SessionManager.php");
 include_once("DAL/User.php");
-include_once("DAL/Permission.php");
 
 class Authentication
 {
