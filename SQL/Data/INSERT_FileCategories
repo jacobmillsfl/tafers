@@ -1,3 +1,5 @@
+use tafers;
+
 
 INSERT INTO FileCategory(name,description)
 VALUES ('Ableton Live Set','This file category is for Ableton Live Sets that are shared amongst different digital audio workstations')

@@ -34,6 +34,7 @@ if(isset($_FILES['file'])){
     $tmp = explode('.',$file_name);
     $file_ext=strtolower(end($tmp));
     $isPublic = isset($_POST['filePublic']) ? 1 : 0;
+    $cat = isset($_POST['filecategory']) ? 0 : $_POST['filecategory']; // TODO: Validate category ID
 
     //$expensions= array("zip","tar","7z",);
     //if(in_array($file_ext,$expensions)=== false){
@@ -65,6 +66,7 @@ if(isset($_FILES['file'])){
             $file->setUploadDate($currentDate);
             $file->setUploadIP($ip);
             $file->setIsPublic($isPublic);
+            $file->setCategoryTypeId($cat);
             $file->save();
         }
         else
@@ -101,6 +103,23 @@ if(isset($_FILES['file'])){
                         <div class="col-lg-6" >
                             <label for="filePublic">Is Public?</label><br/>
                             <input id="filePublic" type="checkbox" name ="filePublic" />
+                            <br>
+                            <div class="control-group form-group col-lg-6 ">
+                                <div class="controls">
+                                    <strong>File Category</strong>
+                                    <br/><small>Please Enter a the category that this file falls under.</small>
+                                    <select name="filecategory" id="filecategory" class="form-control">
+                                        <option>--Select Category--</option>
+                                        <?php
+                                         $categories = FileCategory::loadall();
+                                         foreach ($categories as $category) {
+                                             echo "<option value=\"" . $category->getId() . "\">" . $category->getName() . "</option>";
+                                         }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-lg-12 mt-5">
                             <button type="submit" class="btn btn-primary btn-block float-left">Upload</button>
