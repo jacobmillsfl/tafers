@@ -47,16 +47,14 @@ if (isset($_GET['page'])) {
     <div class="container">
 
         <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">TAFers
-            <small>File Home</small>
+        <h1 class="mt-4 mb-3">File Home
+            <small>A place for TAFer data...</small>
         </h1>
         <ol class="breadcrumb">
 
         </ol>
         <div class="row">
-            <!-- Blog Entries Column -->
             <div class="col-md-8">
-                <!-- uses the loadall() method from Blog.php to dynamically load blog images, titles, contents, dates, and user IDs -->
                 <?php
                 $viewmodel = FileUserViewModel::loadFileHome($filename,$fileCategoryId,$pageNum);
                 foreach($viewmodel as $file)
@@ -144,6 +142,10 @@ if (isset($_GET['page'])) {
                 <a href="upload.php" class ="btn btn-primary btn-lg btn-block"><i class=""></i>Upload File</a>
                 </div>
                 <br>
+                <div class ="text-center">
+                    <a href="filehome.php" class ="btn btn-success btn-lg btn-block"><i class=""></i>Reset Filter</a>
+                </div>
+                <br>
 
                 <!-- Search Widget -->
                 <form action="filehome.php" method="GET">
@@ -171,7 +173,7 @@ if (isset($_GET['page'])) {
                             foreach ($FileCategoryList as $blogcategory){
                                 ?>
                                 <div class="col-lg-6">
-                                    <a href="filehome?fileCategoryId=<?php echo $blogcategory->getId(); ?>"><?php echo $blogcategory->getName(); ?></a>
+                                    <a href="filehome.php?fileCategoryId=<?php echo $blogcategory->getId(); ?>"><?php echo $blogcategory->getName(); ?></a>
                                 </div>
                                 <?php
                             }

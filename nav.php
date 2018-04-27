@@ -22,7 +22,7 @@
                         <a class="nav-link" href="upload.php">Upload</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="files.php">Files</a>
+                        <a class="nav-link" href="filehome.php">Files</a>
                     </li>
                 <?php endif ?>
                 <?php if (SessionManager::getUserId() > 0): ?>
