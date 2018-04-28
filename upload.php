@@ -3,6 +3,7 @@
 session_start();
 
 include_once("DAL/File.php");
+include_once("DAL/FileCategory.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
 
@@ -14,6 +15,7 @@ $file_name = "";
 $file_size = "";
 $file_type = "";
 $file_ext= "";
+
 $userId = SessionManager::getUserId();
 $currentDate = date('Y-m-d H:i:s');
 $ip = getenv('HTTP_CLIENT_IP')?:
@@ -34,7 +36,9 @@ if(isset($_FILES['file'])){
     $tmp = explode('.',$file_name);
     $file_ext=strtolower(end($tmp));
     $isPublic = isset($_POST['filePublic']) ? 1 : 0;
-    $cat = isset($_POST['filecategory']) ? 0 : $_POST['filecategory']; // TODO: Validate category ID
+    $cat = !isset($_POST['filecategory']) ? 0 : $_POST['filecategory'];
+
+    // Validation
 
     //$expensions= array("zip","tar","7z",);
     //if(in_array($file_ext,$expensions)=== false){
@@ -49,6 +53,21 @@ if(isset($_FILES['file'])){
         $errors[]='No file selected';
     }
 
+    // Validate category ID
+    $validCategoryID = false;
+    $categories = FileCategory::loadall();
+    foreach ($categories as $category) {
+        if ($category->getId() == $cat){
+            $validCategoryID = true;
+            break;
+        }
+    }
+
+    if (!$validCategoryID) {
+        $errors[]="Invalid File Category ID";
+    }
+
+    // If no errors attempt upload
     if(empty($errors)==true) {
         if ($isPublic == 1)
             $success = move_uploaded_file($file_tmp,"files/".$file_name);
@@ -73,11 +92,7 @@ if(isset($_FILES['file'])){
         {
             $errors[]='Unable to create file. Please check system permissions.';
         }
-    }else{
-        print_r($errors);
     }
-
-
 }
 ?>
 
@@ -91,35 +106,49 @@ if(isset($_FILES['file'])){
 <section id="Upload" class="content-section-b">
 
     <div class="container">
+
+        <?php
+        if(empty($errors)==false){
+            foreach($errors as $err){
+                echo "<div class=\"row\">";
+                echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"width:100%;\">";
+                echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+                echo "<span aria-hidden=\"true\">&times;</span>";
+                echo "</button>";
+                echo "<strong>Error</strong> " . $err;
+                echo "</div>";
+                echo "</div>";
+            }
+        }
+        ?>
         <div class="row mt-lg-5">
             <div class="col-lg-12 ml-auto">
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-lg-6" >
+                        <div class="col-lg-6 mt-2" >
                             <label for="fileInput">File</label><br/>
                             <input id ="fileInput" type = "file" name = "file" />
                             <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $maxFileSize; ?>">
                         </div>
-                        <div class="col-lg-6" >
+
+                        <div class="col-lg-6 mt-2" >
+                            <div class="controls">
+                                <label for="filecategory">File Category</label>
+                                <br/><small>Please Enter a the category that this file falls under.</small>
+                                <select name="filecategory" id="filecategory" class="form-control" style="height:34px !important;">
+                                    <option value="0">--Select Category--</option>
+                                    <?php
+                                    $categories = FileCategory::loadall();
+                                    foreach ($categories as $category) {
+                                        echo "<option value=\"" . $category->getId() . "\">" . $category->getName() . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mt-2" >
                             <label for="filePublic">Is Public?</label><br/>
                             <input id="filePublic" type="checkbox" name ="filePublic" />
-                            <br>
-                            <div class="control-group form-group col-lg-6 ">
-                                <div class="controls">
-                                    <strong>File Category</strong>
-                                    <br/><small>Please Enter a the category that this file falls under.</small>
-                                    <select name="filecategory" id="filecategory" class="form-control">
-                                        <option>--Select Category--</option>
-                                        <?php
-                                         $categories = FileCategory::loadall();
-                                         foreach ($categories as $category) {
-                                             echo "<option value=\"" . $category->getId() . "\">" . $category->getName() . "</option>";
-                                         }
-                                        ?>
-                                    </select>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="col-lg-12 mt-5">
                             <button type="submit" class="btn btn-primary btn-block float-left">Upload</button>

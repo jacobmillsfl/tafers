@@ -186,12 +186,21 @@ class FileUserViewModel {
     /******************************************************************/
     // Public Methods
     /******************************************************************/
+    private static function setNullValue($value){
+        if ($value == "")
+            return null;
+        else
+            return $value;
+    }
 
-
-    public static function loadFileHome() {
+    public static function loadFileHome($paramContent,$paramBlogCategoryId,$paramOffset) {
         include(self::getDbSettings());
         $conn = new mysqli($servername, $username, $password, $dbname);
-        $stmt = $conn->prepare('CALL usp_ViewModel_LoadFileHome()');
+        $stmt = $conn->prepare('CALL usp_ViewModel_LoadFileHome(?,?,?)');
+        $arg1 = FileUserViewModel::setNullValue($paramContent);
+        $arg2 = FileUserViewModel::setNullValue($paramBlogCategoryId);
+        $arg3 = FileUserViewModel::setNullValue($paramOffset);
+        $stmt->bind_param('sii',$arg1,$arg2,$arg3);
         $stmt->execute();
 
         $result = $stmt->get_result();
