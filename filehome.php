@@ -8,6 +8,7 @@
 session_start();
 
 include_once("Utilities/Authentication.php");
+include_once("DAL/File.php");
 include_once("DAL/FileUserViewModel.php");
 include_once("DAL/FileCategory.php");
 
@@ -30,8 +31,22 @@ if (isset($_GET['page'])) {
     $pageNum = htmlspecialchars($_GET["page"]);
 }
 
+$errors= array();
+if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
+    $deleteFileId = $_GET["delete"];
+    $f = new File($deleteFileId);
+    if ($f->getIsPublic() == 1){
+        $fname = "files/" . $f->getFileName();
+    } else {
+        $fname = "../privateFiles/" . $f->getFileName();
+    }
+    if (unlink($fname)) {
+      File::remove($deleteFileId);
+    } else {
+      $errors[] = "Unable to remove file " . $f->getFileName();
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,9 +65,20 @@ if (isset($_GET['page'])) {
         <h1 class="mt-4 mb-3">File Home
             <small>A place for TAFer data...</small>
         </h1>
-        <ol class="breadcrumb">
-
-        </ol>
+        <?php
+        if(empty($errors)==false){
+            foreach($errors as $err){
+                echo "<div class=\"row\">";
+                echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"width:100%;\">";
+                echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+                echo "<span aria-hidden=\"true\">&times;</span>";
+                echo "</button>";
+                echo "<strong>Error</strong> " . $err;
+                echo "</div>";
+                echo "</div>";
+            }
+        }
+        ?>
         <div class="row">
             <div class="col-md-8">
                 <?php
@@ -96,7 +122,7 @@ if (isset($_GET['page'])) {
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12 ml-auto">
+                                <div class="col-lg-9 ml-auto">
                                     <p>
                                         <?php
                                         if ($file->getIsPublic() == 1){
@@ -106,6 +132,12 @@ if (isset($_GET['page'])) {
                                         }
                                         ?>
                                     </p>
+                                </div>
+                                <div class="col-lg-3">
+                                  <?php
+                                    if (Authentication::hasAdminPermission())
+                                    echo "<a href=\"filehome.php?delete=" . $file->getFileId() . "\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Delete</a>";
+                                  ?>
                                 </div>
                             </div>
                         </div>

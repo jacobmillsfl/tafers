@@ -72,6 +72,12 @@ class Authentication
             die();
         }
     }
+
+    public static function hasAdminPermission()
+    {
+        $roleId = SessionManager::getUserRoleId();
+        return $roleId == 2;
+    }
 }
 
 ?>
