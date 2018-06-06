@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="TAFers only">
     <meta name="author" content="TAFers Anonymous">
+    <meta name="google-site-verification" content="-KYaC0kO-WmRoKVpv2S_cvdWjypqVl84TNybbRJa6K8" />
 
     <title>TAFERS DOT NET</title>
 
