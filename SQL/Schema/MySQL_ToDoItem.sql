@@ -30,7 +30,7 @@ DROP PROCEDURE IF EXISTS `tafers`.`usp_ToDoItem_Search`;
 
 
 CREATE TABLE `tafers`.`ToDoItem` (
-id INT,
+id INT auto_increment,
 priorityId INT,
 createdByUserId INT,
 createDate DATETIME,

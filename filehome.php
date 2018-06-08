@@ -136,13 +136,43 @@ if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
                                 <div class="col-lg-3">
                                   <?php
                                     if (Authentication::hasAdminPermission())
-                                    echo "<a href=\"filehome.php?delete=" . $file->getFileId() . "\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Delete</a>";
+                                    // Button trigger modal
+                                    echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#deleteModal" . $file->getFileId() . "\">Delete</button>";
                                   ?>
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
+
+                    <!-- Modal -->
+                    <?php
+                      if (Authentication::hasAdminPermission())
+                      echo "<div class=\"modal fade\" id=\"deleteModal" . $file->getFileId() . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModalLabel" . $file->getFileId() . "\" aria-hidden=\"true\">";
+                    ?>
+
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete this file? This action cannot be undone.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <?php
+                              if (Authentication::hasAdminPermission())
+                              echo "<a href=\"filehome.php?delete=" . $file->getFileId() . "\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Delete</a>";
+                            ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <hr>
                     <?php
                 }
