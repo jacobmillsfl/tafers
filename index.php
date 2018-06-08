@@ -110,24 +110,33 @@ echo "</header>";
 -->
 
 <section class="content-section-a">
-
     <div class="container">
-
         <div class="row">
-            <div class="col-lg-5 ml-auto">
-                <hr class="section-heading-spacer">
-                <div class="clearfix"></div>
-                <h2 class="section-heading">About Us</h2>
-                <p class="lead">More content coming soon</p>
+          <div class="col-lg-12">
+            <hr class="">
+            <div class="row">
+              <div class="col-lg-7">
+                  <h2 class="section-heading">About Us</h2>
+                  <p class="lead">The Ambient Funk is reshaping the process of music composition and production through collaboration with various artist and integration of analog and digital technolgies. Our mission is to create a platform for artists to continually share and refine music of any genre and present the collective works to audiences across the globe in new and exciting ways.</p>
+              </div>
+              <div class="col-lg-5 mt-5">
+                <p>The works featured on this site are the collective effort of the following artists:</p>
+                <ul>
+                  <li>Jacob Mills</li>
+                  <li>Bradley Williams</li>
+                  <li>Edwin Carrillos</li>
+                  <li>Thomas Toole</li>
+                  <li>Rick Meshell</li>
+                </ul>
+              </div>
             </div>
-            <div class="col-lg-5 mr-auto ">
-                <img class="img-fluid" src="images/butcher.jpg" alt="">
-            </div>
-        </div>
 
+
+          </div>
+
+        </div>
     </div>
     <!-- /.container -->
-
 </section>
 <!-- /.content-section-a -->
 
