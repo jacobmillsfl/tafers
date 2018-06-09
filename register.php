@@ -45,7 +45,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $imgUrl = "/images/missing.png";
         }
 
-        $user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
+        // NOTE: Restrict registration for now
+        //$user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
+        $errorMessage = "Registration is currently restricted. Please contact mail@tafers.net for assistance.";
+        // ENDNOTE
 
         if ($user == null) {
             // Something went wrong while attempting to create this user

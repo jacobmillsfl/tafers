@@ -145,7 +145,6 @@ if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
                         </div>
                     </div>
 
-
                     <!-- Modal -->
                     <?php
                       if (Authentication::hasAdminPermission())
@@ -244,20 +243,11 @@ if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-    <!-- /.container -->
 </section>
-
-<!-- Footer -->
 <?php
-
 include('footer.php');
-
 ?>
-
 </body>
 </html>

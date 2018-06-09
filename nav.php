@@ -26,13 +26,16 @@ $userNav = SessionManager::getUserName();
                     <li class="nav-item">
                         <a class="nav-link" href="filehome.php">Files</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agenda.php">Agenda</a>
+                    </li>
                 <?php endif ?>
                 <?php if (SessionManager::getUserId() > 0): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/account.php">Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout.php">Log Out, &nbsp; <?php echo "<p{display: inline;}>" . $userNav . "</p>" ?></a>
+                        <a class="nav-link" href="/logout.php">Log Out,&nbsp;<?php echo "<p style=\"display: inline;\">" . $userNav . "</p>"; ?></a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">

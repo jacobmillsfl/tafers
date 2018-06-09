@@ -54,6 +54,19 @@ echo "</header>";
 
 
 ?>
+<section id="DJTypHorseMusic" class="content-section-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 ml-auto">
+                <hr style="float: left;width: 355px;border-top: 3px solid #e7e7e7;">
+                <div class="clearfix"></div>
+                <h2 class="section-heading">DJ-TypHorse Music</h2>
+                <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/66147030&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="TAFMusic" class="content-section-a">
     <div class="container">
         <div class="row">
