@@ -8,20 +8,16 @@
 session_start();
 
 include_once("Utilities/Authentication.php");
-include_once("DAL/File.php");
-include_once("DAL/FileUserViewModel.php");
-include_once("DAL/FileCategory.php");
-
 include_once("DAL/ToDoItem.php");
-include_once("DAL/ToDoItemCountsViewModel.php");
 include_once("DAL/ToDoPriority.php");
+include_once("DAL/ToDoItemCountsViewModel.php");
+include_once("DAL/AgendaHomeViewModel.php");
 
 Authentication::checkFilePermissions();
 
 $userId = SessionManager::getUserId();
-$filename = null;
-$fileCategoryId = null;
 $pageNum = 0;
+$priorityId = null;
 
 if (isset($_GET['priorityId'])) {
     $priorityId = htmlspecialchars($_GET["priorityId"]);
@@ -31,10 +27,26 @@ if (isset($_GET['page'])) {
     $pageNum = htmlspecialchars($_GET["page"]);
 }
 
+if (isset($_GET['reopen'])) {
+    $reopen = htmlspecialchars($_GET["reopen"]);
+} else {
+	
+}
+
 $errors= array();
 if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
     $closeItemId = $_GET["close"];
-		// Load ToDoItem, update closed by user ID and closed date, then save
+	$currentDate = date('Y-m-d H:i:s');
+	$agendaItem = new ToDoItem($closeItemId);
+	$agendaItem->setClosedDate($currentDate);
+	$agendaItem->setClosedByUserId($userId);
+	$agendaItem->save();
+} else if (isset($_GET["reopen"]) && Authentication::hasAdminPermission()) {
+    $reopenItemId = $_GET["reopen"];
+	$agendaItem = new ToDoItem($reopenItemId);
+	$agendaItem->setClosedDate(null);
+	$agendaItem->setClosedByUserId(null);
+	$agendaItem->save();
 }
 ?>
 
@@ -50,11 +62,6 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
 <section id="FileHome" class="content-section-a">
 
     <div class="container">
-
-        <!-- Page Heading/Breadcrumbs -->
-        <h1 class="mt-4 mb-3">Agenda
-            <small>- a list of tasks to do</small>
-        </h1>
         <?php
         if(empty($errors)==false){
             foreach($errors as $err){
@@ -69,8 +76,14 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
             }
         }
         ?>
-        <div class="row">
+		<!-- Page Heading/Breadcrumbs -->
+        <h1 class="mt-4 mb-3">Agenda
+            <small>- a list of tasks to do</small>
+        </h1>
+		<br/>
+        <div class="row mt-4">
             <div class="col-md-8">
+			<div class="row"><div class="col-lg-12"><h5>Open Tasks</h5></div></div>
 							<table class="table table-striped dont-break-out">
 							  <thead>
 							    <tr>
@@ -82,7 +95,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
 							  <tbody>
                 <?php
 
-                $viewmodel = ToDoItem::loadall();
+				$viewmodel = AgendaHomeViewModel::loadAgendaHome($priorityId,1,$pageNum);
 
                 foreach($viewmodel as $item)
                 {
@@ -95,7 +108,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                       echo "<th><i class=\"fa fa-angle-down\" style=\"color: green;\" aria-hidden=\"true\"></i></th>";
 										}
 										echo "<td>". $item->getTitle() . "</td>";
-                    echo "<td><button type=\"button\" class=\"btn btn-warning\" data-toggle=\"modal\" data-target=\"#resolveModal" . $item->getId() . "\">View</button></td>";
+                    echo "<td><button type=\"button\" class=\"btn btn-warning\" data-toggle=\"modal\" data-target=\"#resolveModal" . $item->getToDoItemId() . "\">View</button></td>";
 										echo "</tr>";
 
 
@@ -108,18 +121,22 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
             // Generate Modals
             foreach($viewmodel as $item)
             {
-              echo "<div class=\"modal fade\" id=\"resolveModal" . $item->getId() . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"resolveModalLabel" . $item->getId() . "\" aria-hidden=\"true\">";
+              echo "<div class=\"modal fade\" id=\"resolveModal" . $item->getToDoItemId() . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"resolveModalLabel" . $item->getToDoItemId() . "\" aria-hidden=\"true\">";
 
              ?>
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">
-                    <?php echo "<div style=\"width:100%;float:left;\">" . $item->getTitle() . "</div>"; ?>
-                    <?php
-                      $date = new DateTime($item->getCreateDate());
-                      echo "<div style=\"width:100%;float:left;font-size: small;\">" . $date->format('l, F d y h:i:s') . "</div>"; ?>
-                  </h5>
+                  <div class="modal-title">
+
+					<div style="width:15%;float:left;"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo $item->getCreatedByImgUrl() ?>" alt="Account"></div>
+					
+						<?php echo "<div style=\"width:85%;float:left;font-size:larger;\">" . $item->getTitle() . "</div>"; ?>
+						<?php
+						  $date = new DateTime($item->getCreateDate());
+						  echo "<div style=\"width:100%;float:left;font-size: small;\"> Created by <b>" . $item->getCreatedByUsername() . "</b> on " . $date->format('l, F d y h:i:s') . "</div>"; ?>
+
+                  </div>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -130,7 +147,82 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                 <div class="modal-footer">
                   <?php
                     if (Authentication::hasAdminPermission())
-                    echo "<a href=\"agenda.php?close=" . $item->getId() . "\" class=\"btn btn-success\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Mark Complete</a>";
+                    echo "<a href=\"agenda.php?close=" . $item->getToDoItemId() . "\" class=\"btn btn-success\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Mark Complete</a>";
+                  ?>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button>
+                </div>
+              </div>
+            </div>
+            </div>
+            <?php
+            }
+            ?>
+
+			<br/><br/>
+			<div class="row mt-4"><div class="col-lg-12"><h5>Closed Tasks</h5></div></div>
+							<table class="table table-striped dont-break-out">
+							  <thead>
+							    <tr>
+							      <th scope="col" style="width:20%;">Priority</th>
+							      <th scope="col" style="width:80%;">Title</th>
+                    <th scope="col" style="width:20%;"></th>
+							    </tr>
+							  </thead>
+							  <tbody>
+                <?php
+
+				$viewmodel2 = AgendaHomeViewModel::loadAgendaHome($priorityId,0,$pageNum);
+
+                foreach($viewmodel2 as $item)
+                {
+										echo "<tr>";
+										if ($item->getPriorityId() == 3) {
+											echo "<th><i class=\"fa fa-angle-double-up\" style=\"color: red;\" aria-hidden=\"true\"></i></th>";
+										} else if ($item->getPriorityId() == 2) {
+											echo "<th><i class=\"fa fa-angle-up\" style=\"color: orangered;\" aria-hidden=\"true\"></i></th>";
+										} else {
+                      echo "<th><i class=\"fa fa-angle-down\" style=\"color: green;\" aria-hidden=\"true\"></i></th>";
+										}
+										echo "<td>". $item->getTitle() . "</td>";
+                    echo "<td><button type=\"button\" class=\"btn btn-warning\" data-toggle=\"modal\" data-target=\"#reopenModal" . $item->getToDoItemId() . "\">View</button></td>";
+										echo "</tr>";
+
+
+                }
+                ?>
+
+							</tbody>
+						</table>
+            <?php
+            // Generate Modals
+            foreach($viewmodel2 as $item)
+            {
+              echo "<div class=\"modal fade\" id=\"reopenModal" . $item->getToDoItemId() . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"reopenModalLabel" . $item->getToDoItemId() . "\" aria-hidden=\"true\">";
+
+             ?>
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <div class="modal-title">
+					<div style="width:15%;float:left;"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo $item->getCreatedByImgUrl() ?>" alt="Account"></div>
+					
+						<?php echo "<div style=\"width:85%;float:left;font-size:larger;\">" . $item->getTitle() . "</div>"; ?>
+						<?php
+						  $date = new DateTime($item->getCreateDate());
+						  echo "<div style=\"width:100%;float:left;font-size: small;\"> Created by <b>" . $item->getCreatedByUsername() . "</b> on " . $date->format('l, F d y h:i:s') . "</div>"; ?>
+
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                   <?php echo $item->getSummary(); ?>
+                </div>
+                <div class="modal-footer">
+                  <?php
+                    if (Authentication::hasAdminPermission())
+                    echo "<a href=\"agenda.php?reopen=" . $item->getToDoItemId() . "\" class=\"btn btn-warning\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Reopen Task</a>";
                   ?>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button>
                 </div>

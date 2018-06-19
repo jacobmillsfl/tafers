@@ -18,6 +18,7 @@ class Authentication
             SessionManager::setUserId($user->getId());
             SessionManager::setRoleId($user->getRoleId());
             SessionManager::setUserName($user->getUsername());
+			SessionManager::setUserIcon($user->getImgUrl());
             return true;
         }
         else {
