@@ -13,12 +13,12 @@ $userNav = SessionManager::getUserName();
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="https://ctf.tafers.net/">TAF CTF</a>
-                </li>
-                <li class="nav-item">
+                </li>-->
+                <!--<li class="nav-item">
                     <a class="nav-link" href="LifeCounter.html">LifeCounter</a>
-                </li>
+                </li>-->
                 <?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="upload.php">Upload</a>
