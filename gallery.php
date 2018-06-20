@@ -59,6 +59,7 @@ Authentication::checkFilePermissions();
                     <h5 class="card-title">Trifold Ecstacy</h5>
                     <p class="card-text">The song is essentially complete, the current version will need vocals to be rerecorded to be more in tune to the song.</p>
                     <p class="card-text"><small class="text-muted">Almost complete - needs new vocals</small></p>
+                        <a href="https://tafers.net/files/TrifoldEcstacy2.mp3" class="btn btn-primary">Listen!</a>
                   </div>
                 </div>
                 <div class="card">
@@ -67,6 +68,7 @@ Authentication::checkFilePermissions();
                     <h5 class="card-title">Entropy</h5>
                     <p class="card-text">We added more vocals to the beginning and end of the song. Needs to be mixed and mastered.</p>
                     <p class="card-text"><small class="text-muted">Vocal Remix Pt. 2</small></p>
+                    <a href="https://tafers.net/files/Entropy.mp3" class="btn btn-primary">Listen!</a>
                   </div>
                 </div>
                 <div class="card">
@@ -75,6 +77,7 @@ Authentication::checkFilePermissions();
                     <h5 class="card-title">Audacity</h5>
                     <p class="card-text">I have no idea what the progress on this song is, it's almost done right?</p>
                     <p class="card-text"><small class="text-muted">??????</small></p>
+                    <a href="#" class="btn btn-primary">Listen!</a>
                   </div>
                 </div>
               </div>
