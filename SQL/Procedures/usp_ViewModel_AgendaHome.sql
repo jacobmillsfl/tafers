@@ -10,6 +10,10 @@ CREATE PROCEDURE `tafers`.`usp_ViewModel_LoadAgendaHome`
 	IN paramoffset INT
 )
 BEGIN
+	DECLARE maxItems INT;
+	DECLARE myoffset INT;
+	SET maxItems = 10;
+	SET myoffset = ((paramoffset - 1) * maxItems);
 	SELECT
 	`tdi`.`id` AS `toDoItemId`,
 	`tdi`.`priorityId`,
@@ -26,7 +30,7 @@ BEGIN
 		COALESCE(tdi.priorityId,0) = COALESCE(parampriorityId ,tdi.priorityId,0)
 		AND CASE WHEN tdi.closedDate IS NULL THEN COALESCE(paramIsOpen,1) = 1 ELSE COALESCE(paramIsOpen,0) = 0 END
 	ORDER BY tdi.createDate DESC
-	LIMIT 10
-	OFFSET paramoffset;
+	LIMIT maxItems
+	OFFSET myoffset;
 END //
 DELIMITER ;
