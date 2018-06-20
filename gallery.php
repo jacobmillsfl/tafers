@@ -27,6 +27,29 @@ Authentication::checkFilePermissions();
 <section id="Gallery" class="content-section-a">
 
     <div class="container">
+
+      <?php
+      if(empty($errors)==false){
+          foreach($errors as $err){
+              echo "<div class=\"row\">";
+              echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\" style=\"width:100%;\">";
+              echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
+              echo "<span aria-hidden=\"true\">&times;</span>";
+              echo "</button>";
+              echo "<strong>Error</strong> " . $err;
+              echo "</div>";
+              echo "</div>";
+          }
+      }
+      ?>
+      <!-- Page Heading/Breadcrumbs -->
+          <h1 class="mt-4 mb-3">Gallery
+              <small>- images for TAFer data</small>
+          </h1>
+      <br/>
+          <div class="row mt-4">
+              <div class="col-md-8">
+
         <div class="row">
             <div class="col-lg-12 ml-auto">
               <div class="card-group">
