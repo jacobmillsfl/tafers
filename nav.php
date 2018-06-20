@@ -13,12 +13,12 @@ $userNav = SessionManager::getUserName();
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href="https://ctf.tafers.net/">TAF CTF</a>
-                </li>
-                <li class="nav-item">
+                </li>-->
+                <!--<li class="nav-item">
                     <a class="nav-link" href="LifeCounter.html">LifeCounter</a>
-                </li>
+                </li>-->
                 <?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="upload.php">Upload</a>
@@ -26,13 +26,19 @@ $userNav = SessionManager::getUserName();
                     <li class="nav-item">
                         <a class="nav-link" href="filehome.php">Files</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agenda.php">Agenda</a>
+                    </li>
                 <?php endif ?>
                 <?php if (SessionManager::getUserId() > 0): ?>
-                    <li class="nav-item">
+                    <!--<li class="nav-item">
                         <a class="nav-link" href="/account.php">Account</a>
-                    </li>
+                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout.php">Log Out, &nbsp; <?php echo "<p{display: inline;}>" . $userNav . "</p>" ?></a>
+                        <a class="nav-link" href="/logout.php">Log Out,&nbsp;<?php echo "<p style=\"display: inline;\">" . $userNav . "</p>"; ?></a>
+                    </li>
+					<li class="nav-item">
+						<a class="nav-link" href="/account.php"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo SessionManager::getUserIcon() ?>" alt="Account"></a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">

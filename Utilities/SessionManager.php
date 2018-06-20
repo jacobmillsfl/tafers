@@ -47,6 +47,17 @@ class SessionManager
         $_SESSION['roleId'] = $arg1;
     }
 
+	public static function getUserIcon() {
+        if (isset($_SESSION['userIcon']))
+            return $_SESSION['userIcon'];
+        else
+            return 0;
+
+    }
+
+    public static function setUserIcon($arg1){
+        $_SESSION['userIcon'] = $arg1;
+    }
     
 
     // Clear Session Variables

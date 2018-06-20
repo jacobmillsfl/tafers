@@ -17,7 +17,7 @@ Authentication::checkFilePermissions();
 $userId = SessionManager::getUserId();
 $filename = null;
 $fileCategoryId = null;
-$pageNum = 0;
+$pageNum = 1;
 
 if (isset($_GET['content'])) {
     $filename = htmlspecialchars($_GET["content"]);
@@ -25,11 +25,18 @@ if (isset($_GET['content'])) {
 
 if (isset($_GET['fileCategoryId'])) {
     $fileCategoryId = htmlspecialchars($_GET["fileCategoryId"]);
+	if ($fileCategoryId < 1) {
+		$fileCategoryId = null;
+	}
 }
 
 if (isset($_GET['page'])) {
-    $pageNum = htmlspecialchars($_GET["page"]);
+    $pageNum = htmlspecialchars($_GET["page"]);// This handles the offset for paging
+	if ($pageNum < 1) {
+		$pageNum = 1;
+	}
 }
+
 
 $errors= array();
 if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
@@ -136,34 +143,65 @@ if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
                                 <div class="col-lg-3">
                                   <?php
                                     if (Authentication::hasAdminPermission())
-                                    echo "<a href=\"filehome.php?delete=" . $file->getFileId() . "\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Delete</a>";
+                                    // Button trigger modal
+                                    echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#deleteModal" . $file->getFileId() . "\">Delete</button>";
                                   ?>
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Modal -->
+                    <?php
+                      if (Authentication::hasAdminPermission())
+                      echo "<div class=\"modal fade\" id=\"deleteModal" . $file->getFileId() . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"deleteModalLabel" . $file->getFileId() . "\" aria-hidden=\"true\">";
+                    ?>
+
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Delete</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete this file? This action cannot be undone.
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <?php
+                              if (Authentication::hasAdminPermission())
+                              echo "<a href=\"filehome.php?delete=" . $file->getFileId() . "\" class=\"btn btn-danger\"><i class=\"glyphicon glyphicon-remove\"></i>&nbsp;Delete</a>";
+                            ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <hr>
                     <?php
                 }
                 ?>
                 <ul class="pagination justify-content-center mb-4">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">&larr; Older</a>
+					<li class="page-item">
+                        <?php
+							if ($pageNum < 2) {
+								echo "<a class=\"page-link disabled\" style=\"cursor:not-allowed;\">Newer &rarr;</a>";	
+							} else {
+								echo "<a class=\"page-link\" href=\"?fileCategoryId=" . $fileCategoryId . "&page=" . ($pageNum - 1) . " \">Newer &rarr;</a>";	
+							}
+												
+						?>
                     </li>
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Newer &rarr;</a>
+                    <li class="page-item">
+						<?php
+							echo "<a class=\"page-link\" href=\"?fileCategoryId=" . $fileCategoryId . "&page=" . ($pageNum + 1) . " \">Older &rarr;</a>";						
+						?>
+                        
                     </li>
                 </ul>
-                <!-- Pagination Example
-                <ul class="pagination justify-content-center mb-4">
-                    <li class="page-item">
-                        <a class="page-link" href="#">&larr; Older</a>
-                    </li>
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#">Newer &rarr;</a>
-                    </li>
-                </ul> -->
+
 
             </div>
 
@@ -214,20 +252,11 @@ if (isset($_GET["delete"]) && Authentication::hasAdminPermission()) {
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-    <!-- /.container -->
 </section>
-
-<!-- Footer -->
 <?php
-
 include('footer.php');
-
 ?>
-
 </body>
 </html>
