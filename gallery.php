@@ -8,8 +8,7 @@
 session_start();
 
 include_once("Utilities/Authentication.php");
-
-Authentication::checkFilePermissions();
+include_once("DAL/FileUserViewModel.php");
 
 ?>
 
@@ -18,6 +17,7 @@ Authentication::checkFilePermissions();
 <html lang="en">
 
 <?php include('head.php'); ?>
+
 
 <body>
 
@@ -44,45 +44,51 @@ Authentication::checkFilePermissions();
       ?>
       <!-- Page Heading/Breadcrumbs -->
           <h1 class="mt-4 mb-3">Gallery
-              <small>- images for TAFer data</small>
+              <small>- TAFer images</small>
           </h1>
       <br/>
           <div class="row mt-4">
-              <div class="col-md-8">
 
-        <div class="row">
-            <div class="col-lg-12 ml-auto">
-              <div class="card-group">
-                <div class="card">
-                  <img class="card-img-top" src="images/avacyn.jpg" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Trifold Ecstacy</h5>
-                    <p class="card-text">The song is essentially complete, the current version will need vocals to be rerecorded to be more in tune to the song.</p>
-                    <p class="card-text"><small class="text-muted">Almost complete - needs new vocals</small></p>
-                        <a href="https://tafers.net/files/TrifoldEcstacy2.mp3" class="btn btn-primary">Listen!</a>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="images/sorin.jpg" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Entropy</h5>
-                    <p class="card-text">We added more vocals to the beginning and end of the song. Needs to be mixed and mastered.</p>
-                    <p class="card-text"><small class="text-muted">Vocal Remix Pt. 2</small></p>
-                    <a href="https://tafers.net/files/Entropy.mp3" class="btn btn-primary">Listen!</a>
-                  </div>
-                </div>
-                <div class="card">
-                  <img class="card-img-top" src="images/serra.jpg" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title">Audacity</h5>
-                    <p class="card-text">I have no idea what the progress on this song is, it's almost done right?</p>
-                    <p class="card-text"><small class="text-muted">??????</small></p>
-                    <a href="#" class="btn btn-primary">Listen!</a>
-                  </div>
+        <?php
+          $fileCategoryId = 5; //pictures
+          $columnNumber = 0;
+          $viewmodel = FileUserViewModel::loadFileHome($filename,$fileCategoryId,$pageNum);
+
+          foreach($viewmodel as $file)
+          {
+                if ($file->getIsPublic() == 0) {
+                  continue;
+                }
+
+                if ($columnNumber == 0) {
+                    ?>
+                    <div class="row">
+                        <div class="col-lg-12 ml-auto">
+                          <div class="row card-deck">
+                    <?php
+                }
+              ?>
+
+              <div class="card col-lg-3">
+                <div class="card-body">
+                  <a href="<?php echo $_SERVER['REQUEST_SCHEME'] . "://". $_SERVER['SERVER_NAME'] . "/files/". $file->getFileName(); ?>" target="_blank">
+                  <img class="card-img-top" style="height: 200px;max-width: 260px;" src="<?php echo $_SERVER['REQUEST_SCHEME'] . "://". $_SERVER['SERVER_NAME'] . "/files/". $file->getFileName(); ?>" alt="<?php echo $file->getFileName(); ?>">
+                  </a>
                 </div>
               </div>
-            </div>
-        </div>
+
+         <?php
+               $columnNumber = $columnNumber + 1;
+               if ($columnNumber >= 4) {
+                   ?>
+                       </div>
+                     </div>
+                   </div>
+                   <?php
+               }
+          }
+         ?>
+
     </div>
     <!-- /.container -->
 </section>

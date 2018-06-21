@@ -49,7 +49,7 @@ if(isset($_FILES['file'])){
     if($file_size > $maxFileSize) {
         $errors[]='File size must be less than 2 GB';
     }
-    else if ($file_size == 0){
+    else if ($file_size == 0) {
         $errors[]='No file selected';
     }
 
@@ -70,9 +70,25 @@ if(isset($_FILES['file'])){
     // If no errors attempt upload
     if(empty($errors)==true) {
         if ($isPublic == 1)
+        {
+          if (file_exists("files/".$file_name)) {
+            $errors[]="A file with that name already exists.";
+            $success = false;
+          } else {
             $success = move_uploaded_file($file_tmp,"files/".$file_name);
+          }
+        }
         else
+        {
+          if (file_exists("../privateFiles/".$file_name)) {
+            $errors[]="A file with that name already exists.";
+            $success = false;
+          } else {
             $success = move_uploaded_file($file_tmp,"../privateFiles/".$file_name);
+          }
+        }
+
+
 
         if ($success)
         {
