@@ -238,7 +238,7 @@ class ToDoItem {
 			return $arr;
 		}
 		else {
-			die("The query yielded zero results.No rows found.");
+			return array();
 		}
 	}
 
@@ -278,7 +278,7 @@ class ToDoItem {
 			return $arr;
 		}
 		else {
-			die("The query yielded zero results.No rows found.");
+			return array();
 		}
 	}
 }
