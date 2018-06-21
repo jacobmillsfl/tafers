@@ -10,6 +10,10 @@ CREATE PROCEDURE `tafers`.`usp_ViewModel_LoadFileHome`
 	IN paramoffset INT
 )
 BEGIN
+	DECLARE maxItems INT;
+	DECLARE myoffset INT;
+	SET maxItems = 5;
+	SET myoffset = ((paramoffset - 1) * maxItems);
 	SELECT
 		`File`.`id` AS `fileId`,
 		`File`.`fileName` AS `fileName`,
@@ -31,7 +35,7 @@ BEGIN
 		COALESCE(File.`fileName`,'') LIKE COALESCE(CONCAT('%',paramcontent,'%'),File.`fileName`,'')
 		AND COALESCE(File.`categoryTypeId`,0) = COALESCE(paramfileCategoryId,File.`categoryTypeId`,0)
 	ORDER BY `File`.`uploadDate` DESC
-	LIMIT 5
-	OFFSET paramoffset;
+	LIMIT maxItems
+	OFFSET myoffset;
 END //
 DELIMITER ;
