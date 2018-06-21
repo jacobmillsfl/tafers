@@ -52,7 +52,8 @@ include_once("DAL/FileUserViewModel.php");
         <?php
           $fileCategoryId = 5; //pictures
           $columnNumber = 0;
-          $viewmodel = FileUserViewModel::loadFileHome($filename,$fileCategoryId,$pageNum);
+		  
+          $viewmodel = FileUserViewModel::loadFileHome(null,$fileCategoryId,null);
 
           foreach($viewmodel as $file)
           {
