@@ -72,7 +72,7 @@ include_once("DAL/FileUserViewModel.php");
               <div class="card col-lg-3">
                 <div class="card-body">
                   <a href="<?php echo $_SERVER['REQUEST_SCHEME'] . "://". $_SERVER['SERVER_NAME'] . "/files/". $file->getFileName(); ?>" target="_blank">
-                  <img class="card-img-top" style="height: 200px;max-width: 260px;" src="<?php echo $_SERVER['REQUEST_SCHEME'] . "://". $_SERVER['SERVER_NAME'] . "/files/". $file->getFileName(); ?>" alt="<?php echo $file->getFileName(); ?>">
+                  <img class="card-img-top" src="<?php echo $_SERVER['REQUEST_SCHEME'] . "://". $_SERVER['SERVER_NAME'] . "/files/". $file->getFileName(); ?>" alt="<?php echo $file->getFileName(); ?>">
                   </a>
                 </div>
               </div>
