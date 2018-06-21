@@ -19,6 +19,12 @@ $userNav = SessionManager::getUserName();
                 <!--<li class="nav-item">
                     <a class="nav-link" href="LifeCounter.html">LifeCounter</a>
                 </li>-->
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gallery.php">Gallery</a>
+                </li>
                 <?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="upload.php">Upload</a>
