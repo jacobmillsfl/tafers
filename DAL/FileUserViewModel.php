@@ -220,5 +220,29 @@ class FileUserViewModel {
             return $arr;
         }
     }
+	
+	    public static function loadGallery() {
+        include(self::getDbSettings());
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        $stmt = $conn->prepare('CALL usp_ViewModel_LoadGallery()');
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        if (!$result) die($conn->error);
+        if ($result->num_rows > 0) {
+            $arr = array();
+
+            while ($row = $result->fetch_assoc()) {
+                $file = new FileUserViewModel($row['fileId'],$row['fileName'],$row['uploadIP'],$row['uploadDate'],$row['fileExtension'],$row['fileSize'],$row['fileType'],$row['isPublic'],
+                                $row['userId'],$row['username'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
+                $arr[] = $file;
+            }
+            return $arr;
+        }
+        else {
+            $arr = array();
+            return $arr;
+        }
+    }
 
 }

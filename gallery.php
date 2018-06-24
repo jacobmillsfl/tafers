@@ -50,10 +50,8 @@ include_once("DAL/FileUserViewModel.php");
           <div class="row mt-4">
 
         <?php
-          $fileCategoryId = 5; //pictures
-          $columnNumber = 0;
 		  
-          $viewmodel = FileUserViewModel::loadFileHome(null,$fileCategoryId,null);
+          $viewmodel = FileUserViewModel::loadGallery();
 
           foreach($viewmodel as $file)
           {
