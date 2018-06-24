@@ -3,6 +3,7 @@
  * Author: Thomas Toole
  * Date: 06/20/2018
  * Description: This file is the gallery page for tafers
+ * Update 06/24/2018 - Jacob Mills - Pulled data from database instead of static images
  */
 
 session_start();

@@ -7,7 +7,8 @@ CREATE PROCEDURE `tafers`.`usp_ViewModel_LoadGallery`
 (
 )
 BEGIN
-	DECLARE paramfileCategoryId INT = 5; // Pictures
+	DECLARE paramfileCategoryId INT;
+	SET paramfileCategoryId = 5; -- Pictures
 	SELECT
 		`File`.`id` AS `fileId`,
 		`File`.`fileName` AS `fileName`,
@@ -27,7 +28,7 @@ BEGIN
 	INNER JOIN `User` ON `File`.`userId` = `User`.`id`
 	WHERE
 		COALESCE(paramfileCategoryId,File.`categoryTypeId`,0)
+		AND `File`.`isPublic` = 1
 	ORDER BY `File`.`uploadDate` DESC;
-END //
 END //
 DELIMITER ;
