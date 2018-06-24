@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 include_once("DAL/ToDoItem.php");
@@ -43,9 +39,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <?php include('nav.php'); ?>
 
-<!-- Page Content --> ini_set('display_errors', 1);
- ini_set('display_startup_errors', 1);
- error_reporting(E_ALL);
+<!-- Page Content -->
 <section id="Upload" class="content-section-b">
 
     <div class="container">

@@ -35,6 +35,9 @@ $userNav = SessionManager::getUserName();
                     <li class="nav-item">
                         <a class="nav-link" href="agenda.php">Agenda</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="musichome.php">Songs</a>
+                    </li>
                 <?php endif ?>
                 <?php if (SessionManager::getUserId() > 0): ?>
                     <!--<li class="nav-item">

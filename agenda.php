@@ -136,7 +136,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                   <div class="modal-title">
 
 					<div style="width:15%;float:left;"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo $item->getCreatedByImgUrl() ?>" alt="Account"></div>
-					
+
 						<?php echo "<div style=\"width:85%;float:left;font-size:larger;\">" . $item->getTitle() . "</div>"; ?>
 						<?php
 						  $date = new DateTime($item->getCreateDate());
@@ -211,7 +211,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                 <div class="modal-header">
                   <div class="modal-title">
 					<div style="width:15%;float:left;"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo $item->getCreatedByImgUrl() ?>" alt="Account"></div>
-					
+
 						<?php echo "<div style=\"width:85%;float:left;font-size:larger;\">" . $item->getTitle() . "</div>"; ?>
 						<?php
 						  $date = new DateTime($item->getCreateDate());
@@ -244,18 +244,18 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                     <li class="page-item">
                         <?php
 							if ($pageNum < 2) {
-								echo "<a class=\"page-link disabled\" style=\"cursor:not-allowed;\">Newer &rarr;</a>";	
+								echo "<a class=\"page-link disabled\" style=\"cursor:not-allowed;\">Newer &rarr;</a>";
 							} else {
-								echo "<a class=\"page-link\" href=\"?priorityId=" . $priorityId . "&page=" . ($pageNum - 1) . " \">Newer &rarr;</a>";	
+								echo "<a class=\"page-link\" href=\"?priorityId=" . $priorityId . "&page=" . ($pageNum - 1) . " \">Newer &rarr;</a>";
 							}
-												
+
 						?>
                     </li>
                     <li class="page-item">
 						<?php
-							echo "<a class=\"page-link\" href=\"?priorityId=" . $priorityId . "&page=" . ($pageNum + 1) . " \">Older &rarr;</a>";						
+							echo "<a class=\"page-link\" href=\"?priorityId=" . $priorityId . "&page=" . ($pageNum + 1) . " \">Older &rarr;</a>";
 						?>
-                        
+
                     </li>
                 </ul>
 
