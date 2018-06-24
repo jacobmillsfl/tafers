@@ -48,7 +48,7 @@ include_once("DAL/FileUserViewModel.php");
               <small>- TAFer images</small>
           </h1>
       <br/>
-          <div class="row mt-4">
+          <div class="">
 
         <?php
 		  
@@ -62,7 +62,7 @@ include_once("DAL/FileUserViewModel.php");
 
                 if ($columnNumber == 0) {
                     ?>
-                    <div class="row">
+                    <div class="row mt-4">
                         <div class="col-lg-12 ml-auto">
                           <div class="row card-deck">
                     <?php
@@ -80,6 +80,7 @@ include_once("DAL/FileUserViewModel.php");
          <?php
                $columnNumber = $columnNumber + 1;
                if ($columnNumber >= 4) {
+				   $columnNumber = 0;
                    ?>
                        </div>
                      </div>

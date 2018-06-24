@@ -221,7 +221,7 @@ class FileUserViewModel {
         }
     }
 	
-	    public static function loadGallery() {
+	public static function loadGallery() {
         include(self::getDbSettings());
         $conn = new mysqli($servername, $username, $password, $dbname);
         $stmt = $conn->prepare('CALL usp_ViewModel_LoadGallery()');
