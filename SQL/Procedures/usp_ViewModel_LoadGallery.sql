@@ -27,7 +27,7 @@ BEGIN
 	FROM `File`
 	INNER JOIN `User` ON `File`.`userId` = `User`.`id`
 	WHERE
-		COALESCE(paramfileCategoryId,File.`categoryTypeId`,0)
+		paramfileCategoryId = File.`categoryTypeId`
 		AND `File`.`isPublic` = 1
 	ORDER BY `File`.`uploadDate` DESC;
 END //
