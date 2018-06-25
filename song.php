@@ -5,10 +5,6 @@
  * Date: 11/29/2017
  */
 
- ini_set('display_errors', 1);
- ini_set('display_startup_errors', 1);
- error_reporting(E_ALL);
-
 session_start();
 include_once("DAL/Song.php");
 include_once("DAL/SongComment.php");
