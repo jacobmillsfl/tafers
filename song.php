@@ -61,6 +61,93 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="es">
 <?php include('head.php'); ?>
+<style>
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #FFFFFF;
+}
+a {
+    color: #82b440;
+    text-decoration: none;
+}
+.blog-comment::before,
+.blog-comment::after,
+.blog-comment-form::before,
+.blog-comment-form::after{
+    content: "";
+	display: table;
+	clear: both;
+}
+
+.blog-comment ul{
+	list-style-type: none;
+	padding: 0;
+}
+
+.blog-comment img{
+	opacity: 1;
+	filter: Alpha(opacity=100);
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	  	 -o-border-radius: 4px;
+			border-radius: 4px;
+}
+
+.blog-comment img.avatar {
+	position: relative;
+	float: left;
+	margin-left: 0;
+	margin-top: 0;
+	width: 65px;
+	height: 65px;
+}
+
+.blog-comment .post-comments{
+	border: 1px solid #eee;
+    margin-bottom: 20px;
+    margin-left: 85px;
+	margin-right: 0px;
+    padding: 10px 20px;
+    position: relative;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+       	 -o-border-radius: 4px;
+    		border-radius: 4px;
+	background: #fff;
+	color: #6b6e80;
+	position: relative;
+}
+
+.blog-comment .meta {
+	font-size: 13px;
+	color: #aaaaaa;
+	padding-bottom: 8px;
+	margin-bottom: 10px !important;
+	border-bottom: 1px solid #eee;
+}
+
+.blog-comment ul.comments ul{
+	list-style-type: none;
+	padding: 0;
+	margin-left: 85px;
+}
+
+.blog-comment-form{
+	padding-left: 15%;
+	padding-right: 15%;
+	padding-top: 40px;
+}
+
+.blog-comment h3,
+.blog-comment-form h3{
+	margin-bottom: 40px;
+	font-size: 26px;
+	line-height: 30px;
+	font-weight: 800;
+}
+</style>
 <body>
 <?php include('nav.php'); ?>
 
@@ -110,6 +197,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 					</div>
             <hr>
+
+            <div class="row">
+           		<div class="col-md-12">
+           		    <div class="blog-comment">
+           				<h3>Comments</h3>
+                  <hr/>
+           				<ul class="comments">
             <?php
 
 						$songComment = SongComment::search(null,$songId,null,null,null);
@@ -118,27 +212,30 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user = new User($commentUserId);
 
                 ?>
-                <div class="media mb-4">
-                    <img class="d-flex mr-3 rounded-circle" src="<?php echo $user->getImgUrl(); ?>" alt="UserIcon" style="max-height: 50px;max-width: 50px;">
-                    <div class="media-body">
-
-                        <h5 class="mt-0"><?php echo $user->getUsername(); ?> </h5>
-                        <small class="float-right">
-                            <?php
-                            $date = new DateTime($comment->getCreateDate());
-                            echo " Posted on " . $date->format('l, F d y h:i:s') ;
-                            ?>
-                        </small>
-                        <br>
-                        <?php echo nl2br($comment->getComment());?>
-                    </div>
-                </div>
-								<hr>
+                <li class="clearfix">
+                  <img src="<?php echo $user->getImgUrl(); ?>" class="avatar" alt="">
+                  <div class="post-comments">
+                      <p class="meta">
+                        <?php
+                        $formattedDate = strtotime($comment->getCreateDate());
+                        echo date('m-d-y @ h:i A',  $formattedDate);
+                        ?> <a href="#"><?php echo $user->getUserName(); ?></a> says : <!--<i class="pull-right"><a href="#"><small>Reply</small></a></i>--></p>
+                      <p><?php echo nl2br($comment->getComment()); ?></p>
+                  </div>
+                </li>
             <?php
             }//end foreach
 
             ?>
-						<!-- Comments Form -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+
+            <!-- Comments Form -->
             <?php if($userId > 0): ?>
                 <?php
                 if (isset($errorMessage) && $errorMessage != "")
@@ -158,7 +255,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
             <?php endif ?>
-
 
         </div>
 				<!-- Sidebar Widgets Column -->
