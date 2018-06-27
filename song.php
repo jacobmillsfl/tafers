@@ -148,6 +148,9 @@ a {
 <?php include('nav.php'); ?>
 
 <!-- Page Content -->
+<section id="SongSection" class="content-section-a">
+
+<!-- Page Content -->
 <div class="container">
 
     <!-- Page Heading/Breadcrumbs -->
@@ -282,7 +285,7 @@ a {
     </div>
 
 </div><!-- /.container -->
-
+</section>
 <?php include "footer.php" ?>
 
 </body>
