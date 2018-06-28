@@ -45,9 +45,10 @@ else{
 </ul>
 </div>
 <div class="row">
-<div class="tab-content" id="myTabContent" style="width:100%;">
+<div class="tab-content" id="myTabContent" style="width:100%;padding:1em;">
   <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-		<div class="row mt-5">
+		<div class="col-lg-12 mt-5">
+      <div class="row">
 				<div class="col-lg-9 col-sm-6">
 					<div class="row">
 						<div class="col-lg-3 col-sm-6">
@@ -79,11 +80,12 @@ else{
 								<a href="reset-password.php" class ="btn btn-warning btn-lg btn-block">Reset Password</a>
 						</div>
 				</div>
+      </div>
 		</div>
 	</div>
   <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">Coming soon...</div>
   <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
-		<div class="row mt-5">
+		<div class="mt-5">
 			<div class="col-lg-12">
 			<?php
 			 $userlist = User::loadall();
