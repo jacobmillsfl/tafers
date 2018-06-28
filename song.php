@@ -11,9 +11,9 @@ include_once("DAL/SongComment.php");
 include_once("DAL/SongCommentViewModel.php");
 include_once("Utilities/Authentication.php");
 
+Authentication::hasGeneralPermission();
+
 $userId = SessionManager::getUserId();
-
-
 $songId = 0;
 
 if (isset($_GET['id'])) {
@@ -43,6 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $newComment->setCreateDate($currentDate);
             $newComment->setUserId($userId);
             $newComment->save();
+            header("location: /song.php?id=" . $songId);
         }
         else{
             $errorMessage = "Enter a comment.";

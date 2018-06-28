@@ -10,7 +10,7 @@ session_start();
 include_once("Utilities/Authentication.php");
 include_once("DAL/Song.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $userId = SessionManager::getUserId();
 $pageNum = 1;

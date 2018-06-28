@@ -10,7 +10,7 @@ session_start();
 include_once("Utilities/Authentication.php");
 include_once("DAL/File.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 if (array_key_exists("fid",$_GET))
 {

@@ -13,7 +13,7 @@ include_once("DAL/ToDoPriority.php");
 include_once("DAL/ToDoItemCountsViewModel.php");
 include_once("DAL/AgendaHomeViewModel.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $userId = SessionManager::getUserId();
 $pageNum = 1;
@@ -47,12 +47,14 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
 	$agendaItem->setClosedDate($currentDate);
 	$agendaItem->setClosedByUserId($userId);
 	$agendaItem->save();
+  header("location: /agenda.php");
 } else if (isset($_GET["reopen"]) && Authentication::hasAdminPermission()) {
     $reopenItemId = $_GET["reopen"];
 	$agendaItem = new ToDoItem($reopenItemId);
 	$agendaItem->setClosedDate(null);
 	$agendaItem->setClosedByUserId(null);
 	$agendaItem->save();
+  header("location: /agenda.php");
 }
 ?>
 

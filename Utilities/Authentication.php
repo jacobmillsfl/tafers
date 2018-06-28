@@ -63,7 +63,7 @@ class Authentication
     }
 
 
-    public static function checkFilePermissions()
+    public static function hasGeneralPermission()
     {
         $roleId = SessionManager::getUserRoleId();
         if ($roleId == 0 || $roleId == 3) // Disallow not logged in or Restricted role

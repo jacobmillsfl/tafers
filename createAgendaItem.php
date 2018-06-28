@@ -6,7 +6,7 @@ include_once("DAL/ToDoPriority.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $errors= array();
 $userId = SessionManager::getUserId();

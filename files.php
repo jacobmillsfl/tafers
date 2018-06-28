@@ -10,7 +10,7 @@ session_start();
 include_once("Utilities/Authentication.php");
 include_once("DAL/FileUserViewModel.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 ?>
 

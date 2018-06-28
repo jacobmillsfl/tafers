@@ -12,7 +12,7 @@ include_once("DAL/File.php");
 include_once("DAL/FileUserViewModel.php");
 include_once("DAL/FileCategory.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $userId = SessionManager::getUserId();
 $filename = null;

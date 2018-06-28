@@ -6,7 +6,7 @@ include_once("DAL/Song.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $errors= array();
 $userId = SessionManager::getUserId();

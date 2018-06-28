@@ -7,7 +7,7 @@ include_once("DAL/FileCategory.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
 
-Authentication::checkFilePermissions();
+Authentication::hasGeneralPermission();
 
 $maxFileSize = 2147483648; // Roughly 2 GB
 $errors= array();
