@@ -47,12 +47,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // NOTE: Restrict registration for now
         //$user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
-        $errorMessage = "Registration is currently restricted. Please contact mail@tafers.net for assistance.";
+        $user=null;
         // ENDNOTE
 
         if ($user == null) {
+          $errorMessage = "Registration is currently restricted. Please contact mail@tafers.net for assistance.";
             // Something went wrong while attempting to create this user
-            $errorMessage = "An error occurred during the creation of this user account. Please try again. If the problem continues, contact OpenDevTools support at opendevtools@gmail.com";
+            //$errorMessage = "An error occurred during the creation of this user account. Please try again. If the problem continues, contact TAFers support at mail@tafers.net";
         }
         else {
             // Set session values for successful login
@@ -91,11 +92,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php
                     if ($errorMessage != "")
                     {
-                        echo "<div class=\"alert alert-warning alert-dismissible fade show\" role=\"alert\">";
+                        echo "<div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">";
                         echo "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">";
                         echo "<span aria-hidden=\"true\">&times;</span>";
                         echo "</button>";
-                        echo "<strong>Error</strong> " . $errorMessage;
+                        echo "<strong>Error: </strong> " . $errorMessage;
                         echo "</div>";
                     }
                     ?>

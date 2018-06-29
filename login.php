@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="control-group form-group col-lg-6 ">
                         <div class="controls">
                             <strong>Username:</strong><span style="color:red;">*</span>
-                            <br/><small>Please enter a unique username</small>
+                            <br/><small>Please enter your username</small>
                             <input type="text" class="form-control" id="username" name="username" required
                                    data-validation-required-message="Please enter a username." maxlength="255">
                             <p class="help-block"></p>
@@ -56,7 +56,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="control-group form-group col-lg-6 ">
                         <div class="controls">
                             <strong>Password:</strong><span style="color:red;">*</span>
-                            <br/><small>Please enter a strong password</small>
+                            <br/><small>Please enter your password</small>
                             <input type="password" class="form-control" id="password" name="password" required
                                    data-validation-required-message="Please enter a password." maxlength="255">
                         </div>
