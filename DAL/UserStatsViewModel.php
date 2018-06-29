@@ -92,12 +92,16 @@ class UserStatsViewModel {
 
     // Return sum of all stats
     public function getTotalStatPoints(){
+      $uploadScalar=5;
+      $commentScalar=2;
+      $taskCreateScalar=3;
+      $taskCloseScalar=10;
       $total=0;
-      $total+=$this->getFilesUploaded();
-      $total+=$this->getSongsUploaded();
-      $total+=$this->getSongComments();
-      $total+=$this->getTasksCreated();
-      $total+=$this->getTasksClosed();
+      $total+=$this->getFilesUploaded()*$uploadScalar;
+      $total+=$this->getSongsUploaded()*$uploadScalar;
+      $total+=$this->getSongComments()*$commentScalar;
+      $total+=$this->getTasksCreated()*$taskCreateScalar;
+      $total+=$this->getTasksClosed()*$taskCloseScalar;
       return $total;
     }
 
