@@ -6,10 +6,6 @@ include_once("DAL/User.php");
 include_once("DAL/FileUserViewModel.php");
 include_once("DAL/UserStatsViewModel.php");
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 $userId = SessionManager::getUserId();
 
 // If the user is not logged in, they should not have access to this page

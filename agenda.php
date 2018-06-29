@@ -4,7 +4,6 @@
  * Date: 03/16/2018
  * Description: This file is a basic template for pages on the site
  */
-
 session_start();
 
 include_once("Utilities/Authentication.php");
@@ -12,6 +11,8 @@ include_once("DAL/ToDoItem.php");
 include_once("DAL/ToDoPriority.php");
 include_once("DAL/ToDoItemCountsViewModel.php");
 include_once("DAL/AgendaHomeViewModel.php");
+
+
 
 Authentication::hasGeneralPermission();
 
