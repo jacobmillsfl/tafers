@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("Utilities/SessionManager.php");
+include_once("Utilities/Generic.php");
 include_once("DAL/User.php");
 include_once("DAL/FileUserViewModel.php");
 include_once("DAL/UserStatsViewModel.php");
@@ -69,6 +70,13 @@ $UserStats->loadUserStats($userId);
 						</div>
 
             <div class="col-lg-3 col-sm-6 mb-4">
+              <div class="row mb-4">
+                <?php
+                $points=$UserStats->getTotalStatPoints();
+                $imagePath=Generic::getRankIcon($points);
+                echo "<img class=\"img-responsive \" src=\"" . $imagePath . "\" alt=\"avatar\" style=\"max-height:100px;max-width:100%;\" />";
+                ?>
+              </div>
               <div class="row">
                   <?php
                   echo "<h2>" . $user->getUsername() . "</h2>"
@@ -79,6 +87,7 @@ $UserStats->loadUserStats($userId);
                   echo "<p><a href='mailto:" . $user->getEmail() . "'>" . $user->getEmail() . "</a></p>";
                   ?>
               </div>
+
             </div>
             <div class="col-lg-3 col-sm-12 mb-4">
               <div class="row" style="font-family: Courier New;">
