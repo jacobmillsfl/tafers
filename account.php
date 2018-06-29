@@ -5,6 +5,7 @@ include_once("Utilities/Generic.php");
 include_once("DAL/User.php");
 include_once("DAL/FileUserViewModel.php");
 include_once("DAL/UserStatsViewModel.php");
+include_once("DAL/ActivityViewModel.php");
 
 $userId = SessionManager::getUserId();
 
@@ -110,7 +111,38 @@ $UserStats->loadUserStats($userId);
      </div>
 		</div>
 	</div>
-  <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">Coming soon...</div>
+  <div class="tab-pane fade" id="activity" role="tabpanel" aria-labelledby="activity-tab">
+  <h4>Recent Site Activity</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Description</th>
+          <th scope="col">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <?php
+            $ActivityViewModel = ActivityViewModel::loadRecentActivity();
+            foreach($ActivityViewModel as $activity)
+            {
+          ?>
+          <tr>
+            <th scope="row"><?php echo $activity->getDescription(); ?></th>
+            <td>
+              <?php $formattedDate = strtotime($activity->getEventDate());
+              echo date('m-d-y @ h:i A',  $formattedDate);
+              ?>
+            </td>
+          </tr>
+          <?php
+            }
+           ?>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
   <div class="tab-pane fade" id="friends" role="tabpanel" aria-labelledby="friends-tab">
 		<div class="mt-5">
 			<div class="col-lg-12">
