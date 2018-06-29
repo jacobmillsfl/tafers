@@ -126,11 +126,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	                        </div>
 	                    </div>
 	                </div>
-	                <div class="row">
-	                    <div class="col-lg-6">
-	                        <button type="submit" class="btn btn-primary float-right btn-block">Update</button>
-	                    </div>
-	                </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class = "text-right">
+                            <button type="submit" class="btn btn-success btn-lg btn-block">Reset</button>
+                            <br>
+                            <a href="account.php" class ="btn btn-primary btn-lg btn-block">Cancel</a>
+                        </div>
+                    </div>
+                  </div>
 
 	            </form>
 	        </div>
