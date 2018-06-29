@@ -83,7 +83,7 @@ $UserStats->loadUserStats($userId);
             <div class="col-lg-3 col-sm-12 mb-4">
               <div class="row" style="font-family: Courier New;">
                 <div class="col-sm-12"><label>Reputation:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $UserStats->getTotalStatPoints(); ?></div>
-                <div class="col-sm-12"><label>Files Uploaded:</label>&nbsp;<?php echo $UserStats->getTotalStatPoints(); ?></div>
+                <div class="col-sm-12"><label>Files Uploaded:</label>&nbsp;<?php echo $UserStats->getFilesUploaded(); ?></div>
                 <div class="col-sm-12"><label>Songs Created:</label>&nbsp;&nbsp;<?php echo $UserStats->getSongsUploaded(); ?></div>
                 <div class="col-sm-12"><label>Song Comments:</label>&nbsp;&nbsp;<?php echo $UserStats->getSongComments(); ?></div>
                 <div class="col-sm-12"><label>Tasks Created:</label>&nbsp;&nbsp;<?php echo $UserStats->getTasksCreated(); ?></div>
