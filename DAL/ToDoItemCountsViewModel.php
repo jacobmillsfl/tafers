@@ -17,7 +17,7 @@ class ToDoItemCountsViewModel {
     // Properties
     /******************************************************************/
 
-    protected $total;
+    protected z;
     protected $open;
     protected $closed;
 

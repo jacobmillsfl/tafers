@@ -44,7 +44,7 @@ class FileUserViewModel {
                 break;
             case 14:
                 self::__constructFull( $argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7],
-                                        $argv[8], $argv[9], $argv[10], $argv[11], $argv[12], $argv[13], $argv[14] );
+                                        $argv[8], $argv[9], $argv[10], $argv[11], $argv[12], $argv[13] );
         }
     }
 
@@ -220,8 +220,8 @@ class FileUserViewModel {
             return $arr;
         }
     }
-	
-	public static function loadGallery() {
+
+	    public static function loadGallery() {
         include(self::getDbSettings());
         $conn = new mysqli($servername, $username, $password, $dbname);
         $stmt = $conn->prepare('CALL usp_ViewModel_LoadGallery()');
@@ -234,7 +234,7 @@ class FileUserViewModel {
 
             while ($row = $result->fetch_assoc()) {
                 $file = new FileUserViewModel($row['fileId'],$row['fileName'],$row['uploadIP'],$row['uploadDate'],$row['fileExtension'],$row['fileSize'],$row['fileType'],$row['isPublic'],
-                                $row['userId'],$row['username'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
+                                $row['userId'],$row['username'],$row['email'],$row['imgUrl'],$row['userCreateDate'],$row['userRoleId']);
                 $arr[] = $file;
             }
             return $arr;
