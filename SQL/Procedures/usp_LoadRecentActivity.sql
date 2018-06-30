@@ -35,7 +35,7 @@ BEGIN
 		(SELECT u.id AS 'UserId'
 		, u.imgUrl AS 'ImgUrl'
 		, CONCAT(u.username,' commented on song ',s.name) AS 'Description'
-		, s.createDate AS 'EventDate'
+		, sc.createDate AS 'EventDate'
 		, 'SONG_COMMENT' AS 'EventType'
 		FROM User u JOIN SongComment sc on u.id = sc.userId
 		JOIN Song s ON sc.songId = s.id
