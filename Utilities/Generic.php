@@ -8,45 +8,48 @@
 
 class Generic
 {
-    // User ID
+    // Follows exponetional model for discrete rankings 1-22
+    // on an interval between 1 and 1000.
+    // rank^(2.26) = reputation,   or
+    // log2.26(reputation) = rank
     public static function getRankIcon($points) {
 			if ($points >= 1000)
 				$icon = "/images/icons/5stargeneral.png";
-			else if ($points >= 900)
+			else if ($points >= 871)
 				$icon = "/images/icons/general.png";
-			else if ($points >= 800)
+			else if ($points >= 776)
 				$icon = "/images/icons/lieutenantgeneral.png";
-			else if ($points >= 700)
+			else if ($points >= 687)
 				$icon = "/images/icons/majorgeneral.png";
-			else if ($points >= 600)
+			else if ($points >= 604)
 				$icon = "/images/icons/brigadiergeneral.png";
-			else if ($points >= 500)
+			else if ($points >= 526)
 				$icon = "/images/icons/colonel.png";
-			else if ($points >= 400)
+			else if ($points >= 455)
 				$icon = "/images/icons/lieutenantcolonel.png";
-			else if ($points >= 350)
+			else if ($points >= 390)
 				$icon = "/images/icons/major.png";
-			else if ($points >= 300)
+			else if ($points >= 330)
 				$icon = "/images/icons/captain.png";
-			else if ($points >= 250)
+			else if ($points >= 275)
 				$icon = "/images/icons/firstlieutenant.png";
-			else if ($points >= 200)
+			else if ($points >= 226)
 				$icon = "/images/icons/secondlieutenant.png";
-			else if ($points >= 160)
+			else if ($points >= 182)
 				$icon = "/images/icons/commandsergeantmajor.png";
-			else if ($points >= 130)
+			else if ($points >= 143)
 				$icon = "/images/icons/sergeantmajor.png";
-			else if ($points >= 100)
+			else if ($points >= 110)
 				$icon = "/images/icons/firstsergeant.png";
-			else if ($points >= 70)
+			else if ($points >= 81)
 				$icon = "/images/icons/mastersergeant.png";
-			else if ($points >= 50)
+			else if ($points >= 57)
 				$icon = "/images/icons/sergeantfirstclass.png";
-			else if ($points >= 35)
+			else if ($points >= 38)
 				$icon = "/images/icons/staffsergeant.png";
-			else if ($points >= 20)
+			else if ($points >= 23)
 				$icon = "/images/icons/sergeant.png";
-			else if ($points >= 10)
+			else if ($points >= 12)
 				$icon = "/images/icons/corporal.png";
 			else if ($points >= 5)
 			  $icon = "/images/icons/privateFirstClass.png";
