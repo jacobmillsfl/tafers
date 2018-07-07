@@ -58,6 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="es">
 <?php include('head.php'); ?>
+
 <style>
 hr {
     margin-top: 20px;
@@ -219,7 +220,7 @@ a {
                         <?php
                         $formattedDate = strtotime($comment->getCreateDate());
                         echo date('m-d-y @ h:i A',  $formattedDate);
-                        ?> <a href="#"><?php echo $user->getUserName(); ?></a> says : <!--<i class="pull-right"><a href="#"><small>Reply</small></a></i>--></p>
+                        ?> <a href="#"><?php echo $user->getUserName(); ?></a> says : <i class="pull-right"><a href="#"><i class="fa fa-thumbs-o-up" style="font-size:1.5em;"></i></a></i></p>
                       <p><?php echo nl2br($comment->getComment()); ?></p>
                   </div>
                 </li>
@@ -231,7 +232,6 @@ a {
         </div>
       </div>
     </div>
-
 
 
 
@@ -259,6 +259,10 @@ a {
         </div>
 				<!-- Sidebar Widgets Column -->
 				<div class="col-md-4 mt-4">
+            <div class ="text-center">
+            <a href="editSong.php?id=<?php echo $song->getId(); ?>" class ="btn btn-warning btn-lg btn-block"><i class=""></i>Edit Song</a>
+            </div>
+            <br>
 						<div class ="text-center">
 						<a href="createSong.php" class ="btn btn-primary btn-lg btn-block"><i class=""></i>Create Song</a>
 						</div>
@@ -268,7 +272,7 @@ a {
 						</div>
 						<br>
 						<!-- Search Widget -->
-						<form action="songhome.php" method="GET">
+						<form action="musichome.php" method="GET">
 								<div class="card mb-4">
 										<h5 class="card-header">Search</h5>
 										<div class="card-body">

@@ -28,6 +28,8 @@ if (isset($_GET['page'])) {
 	if ($pageNum < 1) {
 		$pageNum = 1;
 	}
+} else {
+  $pageNum = 1;
 }
 
 if (isset($_GET['reopen'])) {
@@ -98,8 +100,13 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
 							  <tbody>
                 <?php
 
-								//$viewmodel = AgendaHomeViewModel::loadAgendaHome($priorityId,0,$pageNum);
-								$viewmodel = Song::loadall();
+                if (isset($_GET['content'])) {
+                    $content = htmlspecialchars($_GET["content"]);
+                } else {
+								    $content = null;
+                }
+
+                $viewmodel = Song::loadMusicHome($content,$pageNum);
 
                 foreach($viewmodel as $item)
                 {
@@ -107,8 +114,6 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
 										echo "<td>". $item->getName() . "</td>";
 										echo "<td><a href=\"song.php?id=" . $item->getId() ."\"><button type=\"button\" class=\"btn btn-primary\">View</button></a></td>";
                     echo "</tr>";
-
-
                 }
                 ?>
 
@@ -148,7 +153,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                 </div>
                 <br>
 								<!-- Search Widget -->
-								<form action="songhome.php" method="GET">
+								<form action="musichome.php" method="GET">
 										<div class="card mb-4">
 												<h5 class="card-header">Search</h5>
 												<div class="card-body">

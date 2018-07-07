@@ -98,7 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <strong>Email Address:</strong><span style="color:red;">*</span>
                                     <br/><small>Please enter your email address</small>
                                     <input type="email" class="form-control" id="email" name="email" required
-                                           data-validation-required-message="Please enter your email address." maxlength="255">
+                                           data-validation-required-message="Please enter your email address." maxlength="255" value="<?php echo $user->getEmail(); ?>">
                                 </div>
                             </div>
 
@@ -108,7 +108,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="controls">
                                     <strong>User Avatar:</strong>
                                     <br/><small>Please enter the URL of an image to associate with your profile</small>
-                                    <input type="text" class="form-control" id="imgUrl" name="imgUrl" maxlength="511">
+                                    <input type="text" class="form-control" id="imgUrl" name="imgUrl" maxlength="511" value="<?php echo $user->getImgUrl(); ?>">
                                 </div>
                             </div>
                         </div>

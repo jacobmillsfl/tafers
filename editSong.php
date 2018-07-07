@@ -8,8 +8,24 @@ include_once("Utilities/Authentication.php");
 
 Authentication::hasGeneralPermission();
 
-$errors= array();
 $userId = SessionManager::getUserId();
+$songId = 0;
+
+if (isset($_GET['id'])) {
+    $songId = htmlspecialchars($_GET["id"]);
+} else {
+	  header("location:/musichome.php");
+}
+
+$song = new Song($songId);
+
+// Check to ensure a song has been loaded
+if($song->getId() < 1)
+{
+    header("location:/musichome.php");
+}
+
+$errors= array();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -17,24 +33,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$songimgurl = $_POST["songimgurl"];
 		$songfileurl = $_POST["songfileurl"];
 		$songdescription = $_POST["songdescription"];
-		$currentDate = date('Y-m-d H:i:s');
 		//insert into table
 
 		if ($songimgurl == "") {
 				$songimgurl = "https://tafers.net/files/horselogo.png";
 		}
 
-		$song = new Song();
 		$song->setName($songname);
 		$song->setImgUrl($songimgurl);
 		$song->setFileUrl($songfileurl);
 		$song->setDescription($songdescription);
-		$song->setCreateDate($currentDate);
-		$song->setCreatedByUserId($userId);
 		$song->save();
 
 		//direct back to musichome page
-		header("location: /musichome.php");
+		header("location: /song.php?id=" . $songId);
 
 }
 ?>
@@ -68,25 +80,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <div class="row mt-lg-5">
             <div class="col-lg-12 ml-auto">
-                <form action="createSong.php" method="post" validate>
+                <form action="editSong.php?id=<?php echo $songId; ?>" method="post" validate>
 									<div class="row">
 											<div class="control-group form-group col-lg-12">
 													<div class="controls">
 															<strong>Song Name:</strong><span style="color:red">*</span><small> Enter a name for this song.</small>
 															<input type="text" class="form-control" id="songname" name="songname" required
-																		 data-validation-required-message="This field is not optional. Don't worry, you can update the name later." maxlength="255">
+																		 data-validation-required-message="This field is not optional. Don't worry, you can update the name later."
+																		 maxlength="255" value="<?php echo $song->getName(); ?>">
 													</div>
 											</div>
 											<div class="control-group form-group col-lg-12">
 													<div class="controls">
 															<strong>Song Image URL:</strong><small> (Optional) If there is an image for this song, provide the URL here. If an image still needs to be uploaded for this song, <a href="/upload.php" target="_blank">upload it here</a>.</small>
-															<input type="text" class="form-control" id="songimgurl" name="songimgurl" maxlength="512">
+															<input type="text" class="form-control" id="songimgurl" name="songimgurl" maxlength="512"
+															value="<?php echo $song->getImgUrl(); ?>">
 													</div>
 											</div>
 											<div class="control-group form-group col-lg-12">
 													<div class="controls">
 															<strong>Song Recording URL:</strong><small> (Optional) If there is a current recording for this song, provide the URL here. If a recording needs to be uploaded for this song, <a href="/upload.php" target="_blank">upload it here</a>.</small>
-															<input type="text" class="form-control" id="songfileurl" name="songfileurl" maxlength="512">
+															<input type="text" class="form-control" id="songfileurl" name="songfileurl" maxlength="512"
+															value="<?php echo $song->getFileUrl(); ?>">
 													</div>
 											</div>
 
@@ -95,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 															<strong>Description:</strong>
 															<br/><small>Enter a description of this song. This can include song lyrics, style, current instruments, ideas, and etc.</small>
 															<textarea rows="10" cols="100" class="form-control" id="songdescription" name="songdescription" maxlength="4096"
-																				style="resize:vertical overflow:auto;" ></textarea>
+																				style="resize:vertical overflow:auto;" ><?php echo $song->getDescription(); ?></textarea>
 													</div>
 											</div>
 									</div>
@@ -104,13 +119,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 										<div class="col-lg-3"></div>
 										<div class="col-lg-3 col-sm-12">
 												<div>
-														<button type="submit" class="btn btn-success btn-lg btn-block">Create</button>
+														<button type="submit" class="btn btn-success btn-lg btn-block">Update</button>
 												</div>
 												<br/>
 										</div>
 										<div class="col-lg-3 col-sm-12">
 												<div>
-														<a href="musichome.php" class ="btn btn-danger btn-lg btn-block">Cancel</a>
+														<a href="song.php?id=<?php echo $songId; ?>" class ="btn btn-danger btn-lg btn-block">Cancel</a>
 												</div>
 												<br/>
 										</div>
