@@ -17,7 +17,7 @@ BEGIN
 		, 'FILE_UPLOAD' AS 'EventType'
 		FROM User u JOIN File f on u.id = f.userId
 		ORDER BY f.uploadDate DESC
-		LIMIT 5)
+		LIMIT 10)
 
 		UNION
 		-- Song Creation
@@ -28,19 +28,19 @@ BEGIN
 		, 'SONG_CREATE' AS 'EventType'
 		FROM User u JOIN Song s on u.id = s.createdByUserId
 		ORDER BY s.createDate DESC
-		LIMIT 5)
+		LIMIT 10)
 
 		UNION
 		-- Song Comment
 		(SELECT u.id AS 'UserId'
 		, u.imgUrl AS 'ImgUrl'
 		, CONCAT(u.username,' commented on song ',s.name) AS 'Description'
-		, s.createDate AS 'EventDate'
+		, sc.createDate AS 'EventDate'
 		, 'SONG_COMMENT' AS 'EventType'
 		FROM User u JOIN SongComment sc on u.id = sc.userId
 		JOIN Song s ON sc.songId = s.id
 		ORDER BY sc.createDate DESC
-		LIMIT 5)
+		LIMIT 10)
 
 		UNION
 		-- Agenda Created
@@ -51,7 +51,7 @@ BEGIN
 		, 'AGENDA_CREATE' AS 'EventType'
 		FROM User u JOIN ToDoItem a on u.id = a.createdByUserId
 		ORDER BY a.createDate DESC
-		LIMIT 5)
+		LIMIT 10)
 
 		UNION
 		-- Agenda Closed
@@ -63,10 +63,10 @@ BEGIN
 		FROM User u JOIN ToDoItem a on u.id = a.closedByUserId
 		WHERE a.closedDate IS NOT NULL
 		ORDER BY a.closedDate DESC
-		LIMIT 5)
+		LIMIT 10)
 
 		UNION
-		-- Uploads
+		-- Users
 		(SELECT u.id AS 'UserId'
 		, u.imgUrl AS 'ImgUrl'
 		, CONCAT(u.username,' registered an account on TAFers! Welcome!') AS 'Description'
@@ -74,7 +74,7 @@ BEGIN
 		, 'USER_REGISTER' AS 'EventType'
 		FROM User u
 		ORDER BY u.createDate DESC
-		LIMIT 5
+		LIMIT 10
 		)
 	) Activity
 	ORDER BY EventDate DESC
