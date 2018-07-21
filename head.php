@@ -7,9 +7,18 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="TAFers only">
+    <meta name="description" content="The Ambient Funk - Official Website">
     <meta name="author" content="TAFers Anonymous">
     <meta name="google-site-verification" content="-KYaC0kO-WmRoKVpv2S_cvdWjypqVl84TNybbRJa6K8" />
+	<meta property="og:image" content="https://www.tafers.net/files/TAF3.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="500">
+	<meta property="og:image:height" content="1000">
+	<meta property="og:url" content="https://www.tafers.net">
+	<meta property="og:title" content="The Ambient Funk - Official Website">
+	<meta property="og:description" content="The Ambient Funk is reshaping the process of music composition and production through collaboration with various artist and integration of analog and digital technolgies. Our mission is to create a platform for artists to continually share and refine music of any genre and present the collective works to audiences across the globe in new and exciting ways.">
+	<meta property="og:type" content="website" />
+	<link rel="image_src" type="image/jpeg" href="https://www.tafers.net/files/TAF3.png" />
 
     <title>TAFERS DOT NET</title>
 
