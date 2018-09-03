@@ -10,6 +10,106 @@ session_start();
 include_once("Utilities/Authentication.php");
 include_once("DAL/FileUserViewModel.php");
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require_once 'C:\Users\Bradley\vendor\autoload.php';
+
+$error = '';
+$name = '';
+$email = '';
+$subject = '';
+$message = '';
+
+function clean_text($string)
+{
+	$string = trim($string);
+	$string = stripslashes($string);
+	$string = htmlspecialchars($string);
+	return $string;
+}
+
+if(isset($_POST["submit"]))
+{
+	if(empty($_POST["name"]))
+	{
+		$error .= '<p><label class="text-danger">Please enter your name</label</p>';
+	}
+	else
+	{
+		$name = clean_text($_POST["name"]);
+		if(!preg_match("/^[a-zA-Z ]*$/",$name))
+		{
+			$error .= '<p><label class="text-danger">Only letters and white space allowed</label></p>';
+		}
+	}
+	if(empty($_POST["email"]))
+	{
+		$error .= '<p><label class="text-danger">Please enter your email</label></p>';
+	}
+	else
+	{
+		$email = clean_text($_POST["email"]);
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+		{
+			$error .= '<p><label class="text-danger">Invalid email format</label></p>';
+		}
+	}
+	if(empty($_POST["subject"]))
+	{
+		$error .= '<p><label class="text-danger">Subject is required</label></p>';
+	}
+	else
+	{
+		$subject = clean_text($_POST["subject"]);
+	}
+	if(empty($_POST["message"]))
+	{
+		$error .= '<p><label class="text-danger">Message is required</label></p>';
+	}
+	else
+	{
+		$message = clean_text($_POST["message"]);
+	}
+	if($error != '')
+	{
+		require 'PHPMailer/src/PHPMailer.php';
+		require 'PHPMailer/src/Exception.php';
+		require 'PHPMailer/src/SMTP.php';
+		require 'PHPMailer/src/OAuth.php';
+		$mail = new PHPMailer;
+		$mail->IsSMTP();
+		$mail->SMTPDebug = 2;
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 587;
+		$mail->SMTPSecure = 'tls';
+		$mail->SMTPAuth = true;
+		$mail->Username = "brad@tafers.net";
+		$mail->Password = "Typical#7";
+		$mail->From = $_POST["email"];
+		$mail->FromName = $_POST["name"];
+		$mail->AddAddress('info@tafers.net', 'Name');
+		$mail->AddCC($_POST["email"], $_POST["name"]);
+		$mail->WordWrap = 50;
+		$mail->IsHTML(true);
+		$mail->Subject = $_POST["subject"];
+		$mail->Body = $_POST["message"];
+		if($mail->Send())
+		{
+			$error = '<label class="text-success">Thank you for contacting us</label>';
+		}
+		else
+		{
+			$error = '<label class="text-danger">There is an error</label>';
+		}
+		$name = '';
+		$emal = '';
+		$subject = '';
+		$message = '';
+	}
+}
+
 ?>
 
 
@@ -33,56 +133,28 @@ include_once("DAL/FileUserViewModel.php");
 			
         <div class="row">
             <div class="col-lg-12 ml-auto">
+			<?php echo $error; ?>
+			<form method="post">
+				<div class="form-group">
+					<label>Enter Name</label>
+					<input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $name; ?>" />
+				</div>
+				<div class="form-group">
+					<label>Enter Email</label>
+					<input type="text" name="email" placeholder="Enter Email" class="form-control" value="<?php echo $email; ?>" />
+				</div>
+				<div class="form-group">
+					<label>Enter Subject</label>
+					<input type="text" name="subject" placeholder="Enter Subject" class="form-control" value="<?php echo $subject; ?>" />
+				</div>
+				<div class="form-group">
+					<label>Enter Message</label>
+					<textarea name="message" placeholder="Enter Message" class="form-control"><?php echo $message; ?></textarea>
+				</div>
+				<div class="form-group" align="center">
+					<input type="submit" name="submit" value="Submit" class="btn btn-info />
+				</div>
 			
-			<form name="contactform" method="post" action="send_form_email.php">
-			<table width="450px">
-				<tr>
-					<td valign="top">
-						<label for="first_name">First Name *</label>
-					</td>
-					<td valign="top">
-						<input  type="text" class="form-control" name="first_name" maxlength="50" size="30">
-					</td>
-				</tr>
-				<tr>
-					<td valign="top">
-						<label for="last_name">Last Name *</label>
-					</td>
-					<td valign="top">
-						<input  type="text" class="form-control" name="last_name" maxlength="50" size="30">
-					</td>
-				</tr>
-				<tr>
-					<td valign="top">
-						<label for="email">Email Address *</label>
-					</td>
-					<td valign="top">
-						<input  type="text" class="form-control" name="email" maxlength="80" size="30">
-					</td>
-				</tr>
-				<tr>
-					<td valign="top">
-						<label for="telephone">Telephone Number</label>
-					</td>
-					<td valign="top">
-						<input  type="text" class="form-control" name="telephone" maxlength="30" size="30">
-					</td>
-				</tr>
-				<tr>
-					<td valign="top">
-						<label for="comments">Comments *</label>
-					</td>
-					<td valign="top">
-						<textarea  name="comments" class="form-control" maxlength="1000" cols="25" rows="6"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" style="text-align:center">
-						<input type="submit" value="Submit">   <!-- <a href="http://www.freecontactform.com/email_form.php">Email Form</a> -->
-					</td>
-				</tr>
-			</table>
-			</form>
 
             </div>
         </div>
