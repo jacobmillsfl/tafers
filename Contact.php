@@ -14,7 +14,7 @@ include_once("DAL/FileUserViewModel.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once 'C:\Users\Bradley\vendor\autoload.php';
+require_once '..\..\vendor\autoload.php';
 
 $error = '';
 $name = '';
@@ -85,8 +85,8 @@ if(isset($_POST["submit"]))
 		$mail->Port = 587;
 		$mail->SMTPSecure = 'tls';
 		$mail->SMTPAuth = true;
-		$mail->Username = "brad@tafers.net";
-		$mail->Password = "Typical#7";
+		$mail->Username = "**********";
+		$mail->Password = "**********";
 		$mail->From = $_POST["email"];
 		$mail->FromName = $_POST["name"];
 		$mail->AddAddress('info@tafers.net', 'Name');
