@@ -7,9 +7,9 @@
 
 session_start();
 
-include("DAL/SiteBanner.php");
-include("DAL/User.php");
-include("Utilities/SessionManager.php");
+include_once("DAL/SiteBanner.php");
+include_once("DAL/User.php");
+include_once("Utilities/SessionManager.php");
 
 ?>
 
@@ -54,6 +54,7 @@ echo "</header>";
 
 
 ?>
+<!--
 <section id="DJTypHorseMusic" class="content-section-b">
     <div class="container">
         <div class="row">
@@ -66,7 +67,7 @@ echo "</header>";
         </div>
     </div>
 </section>
-
+-->
 <section id="TAFMusic" class="content-section-a">
     <div class="container">
         <div class="row">
@@ -143,10 +144,7 @@ echo "</header>";
                 </ul>
               </div>
             </div>
-
-
           </div>
-
         </div>
     </div>
     <!-- /.container -->
@@ -154,9 +152,7 @@ echo "</header>";
 <!-- /.content-section-a -->
 
 <aside class="banner">
-
     <div class="container">
-
         <div class="row">
             <div class="col-lg-6 my-auto">
                 <h2>TAFer Community</h2>
@@ -187,17 +183,11 @@ echo "</header>";
 
     </div>
     <!-- /.container -->
-
 </aside>
 <!-- /.banner -->
-
 <!-- Footer -->
 <?php
-
 include('footer.php');
-
 ?>
-
 </body>
-
 </html>

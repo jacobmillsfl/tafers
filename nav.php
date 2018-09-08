@@ -1,6 +1,7 @@
 <?php
 /* Central file for site navigation */
 
+include_once("Utilities/SessionManager.php");
 $userNav = SessionManager::getUserName();
 
 ?>
@@ -21,6 +22,9 @@ $userNav = SessionManager::getUserName();
                 </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.php">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="gallery.php">Gallery</a>
