@@ -51,6 +51,9 @@ $userNav = SessionManager::getUserName();
                         <a class="nav-link" href="/logout.php">Log Out,&nbsp;<?php echo "<p style=\"display: inline;\">" . $userNav . "</p>"; ?></a>
                     </li>
 					<li class="nav-item">
+                        <a class="nav-link" href="/Contact.php">Contact</a>
+                    </li>
+					<li class="nav-item">
 						<a class="nav-link" href="/account.php"><img style="max-height: 40px;max-width: 40px;" class="d-flex mr-3 rounded-circle" src="<?php echo SessionManager::getUserIcon() ?>" alt="Account"></a>
                     </li>
                 <?php else: ?>
@@ -59,6 +62,9 @@ $userNav = SessionManager::getUserName();
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login.php">LogIn</a>
+                    </li>
+					<li class="nav-item">
+                        <a class="nav-link" href="/Contact.php">Contact</a>
                     </li>
                 <?php endif ?>
             </ul>
