@@ -2,6 +2,7 @@
 /**
  * Author: Bradley Williams
  * Date: 09/01/2018
+ * Last updated: 03/08/2019
  * Description: This file is to allow user feedback via email
  */
 
@@ -14,7 +15,7 @@ include_once("DAL/FileUserViewModel.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once '..\..\vendor\autoload.php';
+require_once 'C:\Users\Bradley\vendor\autoload.php';
 
 $error = '';
 $name = '';
@@ -32,6 +33,9 @@ function clean_text($string)
 
 if(isset($_POST["submit"]))
 {
+	
+	$error = '';
+	
 	if(empty($_POST["name"]))
 	{
 		$error .= '<p><label class="text-danger">Please enter your name</label</p>';
@@ -72,7 +76,7 @@ if(isset($_POST["submit"]))
 	{
 		$message = clean_text($_POST["message"]);
 	}
-	if($error != '')
+	if($error == '')
 	{
 		require 'PHPMailer/src/PHPMailer.php';
 		require 'PHPMailer/src/Exception.php';
@@ -80,16 +84,16 @@ if(isset($_POST["submit"]))
 		require 'PHPMailer/src/OAuth.php';
 		$mail = new PHPMailer;
 		$mail->IsSMTP();
-		$mail->SMTPDebug = 2;
+		//$mail->SMTPDebug = 2;
 		$mail->Host = 'smtp.gmail.com';
 		$mail->Port = 587;
 		$mail->SMTPSecure = 'tls';
 		$mail->SMTPAuth = true;
-		$mail->Username = "**********";
-		$mail->Password = "**********";
+		$mail->Username = "@tafers.net";
+		$mail->Password = "";
 		$mail->From = $_POST["email"];
-		$mail->FromName = $_POST["name"];
-		$mail->AddAddress('info@tafers.net', 'Name');
+		$mail->FromName = "Tafers";
+		$mail->AddAddress('@tafers.net');
 		$mail->AddCC($_POST["email"], $_POST["name"]);
 		$mail->WordWrap = 50;
 		$mail->IsHTML(true);
@@ -98,16 +102,19 @@ if(isset($_POST["submit"]))
 		if($mail->Send())
 		{
 			$error = '<label class="text-success">Thank you for contacting us</label>';
+			echo $error;
 		}
 		else
 		{
 			$error = '<label class="text-danger">There is an error</label>';
 		}
 		$name = '';
-		$emal = '';
+		$email = '';
 		$subject = '';
 		$message = '';
+		
 	}
+
 }
 
 ?>
@@ -152,7 +159,7 @@ if(isset($_POST["submit"]))
 					<textarea name="message" placeholder="Enter Message" class="form-control"><?php echo $message; ?></textarea>
 				</div>
 				<div class="form-group" align="center">
-					<input type="submit" name="submit" value="Submit" class="btn btn-info />
+					<input id="myInput" type="submit" name="submit" value="Submit" class="btn btn-info" />
 				</div>
 			
 
