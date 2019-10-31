@@ -5,10 +5,6 @@
     * Date: 08/17/2018
     * Description: This file is a page that describes "About TAFers"
     */
-   ini_set('display_errors', 1);
-   ini_set('display_startup_errors', 1);
-   error_reporting(E_ALL);
-
    session_start();
 
    ?>
@@ -44,7 +40,7 @@
                      <img class="card-img-top" src="images/Mills_Jacob.jpg" alt="Member Icon">
                      <div class="card-body">
                         <h4 class="card-title">Jacob Mills</h4>
-                        <h6 class="card-subtitle mb-2 text-muted"> Producer </h6>
+                        <h6 class="card-subtitle mb-2 text-muted">Producer, Piano, Bass</h6>
                         <p class="card-text"></p>
                      </div>
                      <div class="card-footer"><a href="#">jacob@tafers.net</a></div>
@@ -52,10 +48,10 @@
                </div>
                <div class="col-lg-4 mb-4">
                   <div class="card h-100 text-center">
-                     <img class="card-img-top" src="images/missing.png" alt="Member Icon">
+                     <img class="card-img-top" src="images/Brad.jpg" alt="Member Icon">
                      <div class="card-body">
                         <h4 class="card-title">Bradley Williams</h4>
-                        <h6 class="card-subtitle mb-2 text-muted"> Manager </h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> Design, Guitar </h6>
                         <p class="card-text">Coming soon.</p>
                      </div>
                      <div class="card-footer"><a href="#">brad@tafers.net</a></div>
@@ -63,10 +59,10 @@
                </div>
                <div class="col-lg-4 mb-4">
                   <div class="card h-100 text-center">
-                     <img class="card-img-top" src="images/missing.png" alt="Member Icon">
+                     <img class="card-img-top" src="images/Edwin.jpg" alt="Member Icon">
                      <div class="card-body">
                         <h4 class="card-title">Edwin Carillos</h4>
-                        <h6 class="card-subtitle mb-2 text-muted"> DJ </h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> Producer, DJ </h6>
                         <p class="card-text">Coming soon.</p>
                      </div>
                      <div class="card-footer"><a href="#">edwin@tafers.net</a></div>
@@ -74,10 +70,10 @@
                </div>
                <div class="col-lg-4 mb-4">
                   <div class="card h-100 text-center">
-                     <img class="card-img-top" src="images/missing.png" alt="Member Icon">
+                     <img class="card-img-top" src="images/Thomas.jpg" alt="Member Icon">
                      <div class="card-body">
                         <h4 class="card-title">Thomas Toole</h4>
-                        <h6 class="card-subtitle mb-2 text-muted"> Boss </h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> Vocals, Saxophone </h6>
                         <p class="card-text">Coming soon.</p>
                      </div>
                      <div class="card-footer"><a href="#">thomas@tafers.net</a></div>
@@ -85,41 +81,14 @@
                </div>
                <div class="col-lg-4 mb-4">
                   <div class="card h-100 text-center">
-                     <img class="card-img-top" src="images/missing.png" alt="Member Icon">
+                     <img class="card-img-top" src="images/Rick.jpg" alt="Member Icon">
                      <div class="card-body">
                         <h4 class="card-title">Rick Meshell</h4>
-                        <h6 class="card-subtitle mb-2 text-muted"> Design Lead </h6>
+                        <h6 class="card-subtitle mb-2 text-muted"> Design Lead, Vocals </h6>
                         <p class="card-text">Coming soon.</p>
                      </div>
                      <div class="card-footer"><a href="#">rick@tafers.net</a></div>
                   </div>
-               </div>
-            </div>
-            <!-- /.row -->
-            <!-- Our Partners -->
-            <h2>Our Partners</h2>
-            <div class="row">
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid"
-                     src="images/DigitalOcean_Logo.png"
-                     alt="DigitalOcean">
-               </div>
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid" src="images/Ubuntu_Logo.png" alt="Ubuntu">
-               </div>
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid" src="images/Nginx_Logo.png" alt="Nginx">
-               </div>
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid"
-                     src="images/PhpStorm_Logo.png"
-                     alt="PHPStorm">
-               </div>
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid" src="images/Xampp_Logo.jpg" alt="XAMPP">
-               </div>
-               <div class="col-lg-2 col-sm-4 mb-4">
-                  <img class="img-fluid" src="images/MySQL_Logo.jpg" alt="MySQL">
                </div>
             </div>
             <!-- /.row -->
