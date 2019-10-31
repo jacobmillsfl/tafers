@@ -15,7 +15,7 @@ include_once("DAL/FileUserViewModel.php");
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once 'C:\Users\Bradley\vendor\autoload.php';
+//require_once 'C:\Users\Bradley\vendor\autoload.php';
 
 $error = '';
 $name = '';
