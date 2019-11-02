@@ -29,7 +29,10 @@ $userNav = SessionManager::getUserName();
                 <li class="nav-item">
                     <a class="nav-link" href="gallery.php">Gallery</a>
                 </li>
-                <?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="player.php">Music</a>
+                </li>
+		<?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="upload.php">Upload</a>
                     </li>
