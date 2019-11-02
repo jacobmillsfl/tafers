@@ -74,8 +74,32 @@ BEGIN
 		, 'USER_REGISTER' AS 'EventType'
 		FROM User u
 		ORDER BY u.createDate DESC
-		LIMIT 10
-		)
+		LIMIT 10)
+         
+        UNION
+		-- BlogPosts
+		(SELECT u.id AS 'UserId'
+		, u.imgUrl AS 'ImgUrl'
+		, CONCAT(u.username,' added a blog') AS 'Description'
+		, B.createDate AS 'EventDate'
+		, 'BLOG_CREATE' AS 'EventType'
+		FROM User u
+        INNER JOIN Blog B ON u.id = B.createdByUserId
+		ORDER BY B.createDate DESC
+		LIMIT 10)
+         
+        UNION
+		-- BlogComments
+		(SELECT u.id AS 'UserId'
+		, u.imgUrl AS 'ImgUrl'
+		, CONCAT(u.username,' added a blog comment') AS 'Description'
+		, B.createDate AS 'EventDate'
+		, 'BLOG_CREATE' AS 'EventType'
+		FROM User u
+        INNER JOIN BlogComment B ON u.id = B.createdByUserId
+		ORDER BY B.createDate DESC
+		LIMIT 10)
+		
 	) Activity
 	ORDER BY EventDate DESC
 	LIMIT 10;

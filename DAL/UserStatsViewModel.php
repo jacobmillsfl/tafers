@@ -22,6 +22,9 @@ class UserStatsViewModel {
     protected $songComments;
     protected $tasksCreated;
     protected $tasksClosed;
+    protected $blogsCreated;
+    protected $blogComments;
+    protected $blogLikes;
 
     /******************************************************************/
     // Constructors
@@ -32,8 +35,8 @@ class UserStatsViewModel {
             case 0:
                 self::__constructBase();
                 break;
-            case 5:
-                self::__constructFull( $argv[0], $argv[1], $argv[2], $argv[3], $argv[4]);
+            case 8:
+                self::__constructFull( $argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7]);
         }
     }
 
@@ -44,14 +47,20 @@ class UserStatsViewModel {
         $this->songComments = 0;
         $this->tasksCreated = 0;
         $this->tasksClosed = 0;
+        $this->blogsCreated = 0;
+        $this->blogComments = 0;
+        $this->blogLikes = 0;
     }
 
-    public function __constructFull($files,$songs,$comments,$created,$closed) {
+    public function __constructFull($files,$songsUploaded,$songComments,$tasksCreated,$tasksClosed,$blogsCreated,$blogComments,$blogLikes) {
       $this->filesUploaded = $files;
-      $this->songsUploaded = $songs;
-      $this->songComments = $comments;
-      $this->tasksCreated = $created;
-      $this->tasksClosed = $closed;
+      $this->songsUploaded = $songsUploaded;
+      $this->songComments = $songComments;
+      $this->tasksCreated = $tasksCreated;
+      $this->tasksClosed = $tasksClosed;
+      $this->blogsCreated = $blogsCreated;
+      $this->blogComments = $blogComments;
+      $this->blogLikes = $blogLikes;
     }
 
 
@@ -89,6 +98,24 @@ class UserStatsViewModel {
     public function setTasksClosed($value){
         $this->tasksClosed = $value;
     }
+    public function getBlogsCreated(){
+        return $this->blogsCreated;
+    }
+    public function setBlogsCreated($value){
+        $this->blogsCreated = $value;
+    }
+    public function getBlogComments(){
+        return $this->blogComments;
+    }
+    public function setBlogComments($value){
+        $this->blogComments = $value;
+    }
+    public function getBlogLikes(){
+        return $this->blogLikes;
+    }
+    public function setBlogLikes($value){
+        $this->blogLikes = $value;
+    }
 
     // Return sum of all stats
     public function getTotalStatPoints(){
@@ -96,12 +123,18 @@ class UserStatsViewModel {
       $commentScalar=2;
       $taskCreateScalar=3;
       $taskCloseScalar=10;
+      $blogCreatedScalar=5;
+      $blogCommentScalar=2;
+      $blogLikeScalar=2;
       $total=0;
       $total+=$this->getFilesUploaded()*$uploadScalar;
       $total+=$this->getSongsUploaded()*$uploadScalar;
       $total+=$this->getSongComments()*$commentScalar;
       $total+=$this->getTasksCreated()*$taskCreateScalar;
       $total+=$this->getTasksClosed()*$taskCloseScalar;
+      $total+=$this->getBlogsCreated()*$blogCreatedScalar;
+      $total+=$this->getBlogComments()*$blogCommentScalar;
+      $total+=$this->getBlogLikes()*$blogLikeScalar;
       return $total;
     }
 
@@ -120,6 +153,9 @@ class UserStatsViewModel {
          $this->setSongComments($row['SongComments']);
          $this->setTasksCreated($row['TasksCreated']);
          $this->setTasksClosed($row['TasksClosed']);
+         $this->setBlogsCreated($row['BlogsCreated']);
+         $this->setBlogComments($row['BlogComments']);
+         $this->setBlogLikes($row['BlogLikes']);
        }
     }
 
@@ -133,6 +169,7 @@ class UserStatsViewModel {
             return $value;
     }
 
+    /*
     public static function loadAllUserStats() {
         include(self::getDbSettings());
         $conn = new mysqli($servername, $username, $password, $dbname);
@@ -149,5 +186,6 @@ class UserStatsViewModel {
             return new UserStatsViewModel();
         }
     }
+    */
 
 }

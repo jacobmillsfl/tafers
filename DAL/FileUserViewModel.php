@@ -210,7 +210,7 @@ class FileUserViewModel {
 
             while ($row = $result->fetch_assoc()) {
                 $file = new FileUserViewModel($row['fileId'],$row['fileName'],$row['uploadIP'],$row['uploadDate'],$row['fileExtension'],$row['fileSize'],$row['fileType'],$row['isPublic'],
-                                $row['userId'],$row['username'],$row['email'],$row['imgUrl'],$row['createDate'],$row['roleId']);
+                                $row['userId'],$row['username'],$row['email'],$row['imgUrl'],$row['userCreateDate'],$row['userRoleId']);
                 $arr[] = $file;
             }
             return $arr;

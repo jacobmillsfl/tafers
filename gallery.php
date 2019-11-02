@@ -53,6 +53,7 @@ include_once("DAL/FileUserViewModel.php");
         <?php
 		  
           $viewmodel = FileUserViewModel::loadGallery();
+          $columnNumber = 0;
 
           foreach($viewmodel as $file)
           {

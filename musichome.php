@@ -143,7 +143,7 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
             </div>
 
             <!-- Sidebar Widgets Column -->
-            <div class="col-md-4">
+            <div class="col-md-4 mt-lg-3">
                 <div class ="text-center">
                 <a href="createSong.php" class ="btn btn-primary btn-lg btn-block"><i class=""></i>Create Song</a>
                 </div>
@@ -152,20 +152,20 @@ if (isset($_GET["close"]) && Authentication::hasAdminPermission()) {
                     <a href="musichome.php" class ="btn btn-success btn-lg btn-block"><i class=""></i>Reset Filter</a>
                 </div>
                 <br>
-								<!-- Search Widget -->
-								<form action="musichome.php" method="GET">
-										<div class="card mb-4">
-												<h5 class="card-header">Search</h5>
-												<div class="card-body">
-														<div class="input-group">
-																<input type="text" name="content" class="form-control" placeholder="Search for...">
-																<span class="input-group-btn">
-															<button class="btn btn-secondary" type="submit">Go!</button>
-														</span>
-														</div>
-												</div>
-										</div>
-								</form>
+                <!-- Search Widget -->
+                <form action="musichome.php" method="GET">
+                        <div class="card mb-4">
+                                <h5 class="card-header">Search</h5>
+                                <div class="card-body">
+                                        <div class="input-group">
+                                                <input type="text" name="content" class="form-control" placeholder="Search for...">
+                                                <span class="input-group-btn">
+                                            <button class="btn btn-secondary" type="submit">Go!</button>
+                                        </span>
+                                        </div>
+                                </div>
+                        </div>
+                </form>
             </div>
 
 

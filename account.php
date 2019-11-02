@@ -21,7 +21,6 @@ else{
 
 $UserStats = new UserStatsViewModel();
 $UserStats->loadUserStats($userId);
-
 ?>
 
 
@@ -94,6 +93,9 @@ $UserStats->loadUserStats($userId);
                 <div class="col-sm-12"><label>Song Comments:</label>&nbsp;&nbsp;<?php echo $UserStats->getSongComments(); ?></div>
                 <div class="col-sm-12"><label>Tasks Created:</label>&nbsp;&nbsp;<?php echo $UserStats->getTasksCreated(); ?></div>
                 <div class="col-sm-12"><label>Tasks Closed:</label>&nbsp;&nbsp;&nbsp;<?php echo $UserStats->getTasksClosed(); ?></div>
+                <div class="col-sm-12"><label>Blogs Created:</label>&nbsp;&nbsp;&nbsp;<?php echo $UserStats->getBlogsCreated(); ?></div>
+                <div class="col-sm-12"><label>Blog Comments:</label>&nbsp;&nbsp;&nbsp;<?php echo $UserStats->getBlogComments(); ?></div>
+                <div class="col-sm-12"><label>Blog Likes:   </label>&nbsp;&nbsp;&nbsp;<?php echo $UserStats->getBlogLikes(); ?></div>
               </div>
             </div>
             <div class="col-lg-3 col-sm-12">

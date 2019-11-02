@@ -14,6 +14,9 @@ BEGIN
 	,(SELECT COUNT(*) FROM SongComment sc WHERE sc.userId = u.id) AS 'SongComments'
 	,(SELECT COUNT(*) FROM ToDoItem tdi WHERE tdi.createdByUserId = u.id) AS 'TasksCreated'
 	,(SELECT COUNT(*) FROM ToDoItem tdi WHERE tdi.closedByUserId = u.id) AS 'TasksClosed'
+    ,(SELECT COUNT(*) FROM Blog B WHERE B.createdByUserId = u.id) AS 'BlogsCreated'
+    ,(SELECT COUNT(*) FROM BlogComment BC WHERE BC.createdByUserId = u.id) AS 'BlogComments'
+    ,(SELECT * FROM BlogLike BL INNER JOIN Blog B ON BL.blogId = B.id WHERE B.createdByUserId = u.id) AS 'BlogLikes'
 	FROM User u;
 END //
 DELIMITER ;
@@ -31,6 +34,9 @@ BEGIN
 	,(SELECT COUNT(*) FROM SongComment sc WHERE sc.userId = u.id) AS 'SongComments'
 	,(SELECT COUNT(*) FROM ToDoItem tdi WHERE tdi.createdByUserId = u.id) AS 'TasksCreated'
 	,(SELECT COUNT(*) FROM ToDoItem tdi WHERE tdi.closedByUserId = u.id) AS 'TasksClosed'
+    ,(SELECT COUNT(*) FROM Blog B WHERE B.createdByUserId = u.id) AS 'BlogsCreated'
+    ,(SELECT COUNT(*) FROM BlogComment BC WHERE BC.createdByUserId = u.id) AS 'BlogComments'
+    ,(SELECT COUNT(*) FROM BlogLike BL INNER JOIN Blog B ON BL.blogId = B.id WHERE B.createdByUserId = u.id) AS 'BlogLikes'
 	FROM User u
 	WHERE u.id = paramId;
 END //
