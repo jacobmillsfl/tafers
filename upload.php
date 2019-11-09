@@ -6,6 +6,7 @@ include_once("DAL/File.php");
 include_once("DAL/FileCategory.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
+include_once("Utilities/Mailer.php");
 
 Authentication::hasGeneralPermission();
 
@@ -103,6 +104,8 @@ if(isset($_FILES['file'])){
             $file->setIsPublic($isPublic);
             $file->setCategoryTypeId($cat);
             $file->save();
+            
+            Mailer::sendFileUploadEmail($userId,$file->getId());
         }
         else
         {

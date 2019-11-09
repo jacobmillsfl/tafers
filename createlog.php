@@ -6,6 +6,7 @@ include_once("DAL/Band.php");
 include_once("DAL/Blog.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
+include_once("Utilities/Mailer.php");
 
 Authentication::hasGeneralPermission();
 $errors= array();
@@ -42,9 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $blog->setBandId($bandId);
         $blog->setMessage($message);
         $blog->setCreateDate($currentDate);
-        // Save to database
-        $blog->save();
         
+        // Save to database
+        $blog->save();        
+        Mailer::sendBlogCreateEmail($userId,$blog->getId());
         header("location: /blog.php?bandId=" . $bandId);
     }
 }

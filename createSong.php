@@ -5,6 +5,7 @@ session_start();
 include_once("DAL/Song.php");
 include_once("Utilities/SessionManager.php");
 include_once("Utilities/Authentication.php");
+include_once("Utilities/Mailer.php");
 
 Authentication::hasGeneralPermission();
 
@@ -32,6 +33,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$song->setCreateDate($currentDate);
 		$song->setCreatedByUserId($userId);
 		$song->save();
+    
+        Mailer::sendSongCreateEmail($userId,$song->getId());
 
 		//direct back to musichome page
 		header("location: /musichome.php");

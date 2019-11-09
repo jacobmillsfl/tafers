@@ -10,6 +10,7 @@ include_once("DAL/Song.php");
 include_once("DAL/SongComment.php");
 include_once("DAL/SongCommentViewModel.php");
 include_once("Utilities/Authentication.php");
+include_once("Utilities/Mailer.php");
 
 Authentication::hasGeneralPermission();
 
@@ -43,6 +44,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $newComment->setCreateDate($currentDate);
             $newComment->setUserId($userId);
             $newComment->save();
+            
+            Mailer::sendSongCommentEmail($userId,$newComment->getId());
             header("location: /song.php?id=" . $songId);
         }
         else{

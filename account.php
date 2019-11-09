@@ -1,11 +1,20 @@
 <?php
 session_start();
-include_once("Utilities/SessionManager.php");
-include_once("Utilities/Generic.php");
-include_once("DAL/User.php");
-include_once("DAL/FileUserViewModel.php");
-include_once("DAL/UserStatsViewModel.php");
-include_once("DAL/ActivityViewModel.php");
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use DAL\;
+require_once 'PHPMailer/src/PHPMailer.php';
+require_once 'PHPMailer/src/SMTP.php';
+require_once 'PHPMailer/src/Exception.php';
+require_once 'DAL/User.php';
+require_once 'DAL/File.php';
+require_once 'DAL/Song.php';
+require_once 'DAL/SongComment.php';
+require_once 'DAL/Blog.php';
+require_once 'DAL/BlogComment.php';
+
 
 $userId = SessionManager::getUserId();
 

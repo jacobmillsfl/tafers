@@ -8,6 +8,7 @@
 session_start();
 
 include_once("Utilities/Authentication.php");
+include_once("Utilities/Mailer.php");
 include_once("DAL/Band.php");
 include_once("DAL/Blog.php");
 include_once("DAL/BlogComment.php");
@@ -49,8 +50,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $blogComment->setBlogId($targetBlogId);
             $blogComment->setCreatedByUserId($userId);
             $blogComment->setCreateDate($currentDate);
-            $blogComment->setMessage($comment);
+            $blogComment->setMessage($comment);     
             $blogComment->save();
+            Mailer::sendBlogCommentEmail($userId,$blogComment->getId());
             header("location: /blog.php?bandId=" . $bandId);
         }
         else{
