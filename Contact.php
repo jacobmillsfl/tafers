@@ -2,7 +2,7 @@
 /**
  * Author: Bradley Williams
  * Date: 09/01/2018
- * Last updated: 03/08/2019
+ * Last updated: 11/09/2019
  * Description: This file is to allow user feedback via email
  */
 
@@ -89,11 +89,11 @@ if(isset($_POST["submit"]))
 		$mail->Port = 587;
 		$mail->SMTPSecure = 'tls';
 		$mail->SMTPAuth = true;
-		$mail->Username = "@tafers.net";
-		$mail->Password = "";
+		$mail->Username = "theambientfunk@gmail.com";
+		$mail->Password = "SolidInk850";
 		$mail->From = $_POST["email"];
-		$mail->FromName = "Tafers";
-		$mail->AddAddress('@tafers.net');
+		$mail->FromName = "TAF";
+		$mail->AddAddress('theambientfunk@gmail.com');
 		$mail->AddCC($_POST["email"], $_POST["name"]);
 		$mail->WordWrap = 50;
 		$mail->IsHTML(true);

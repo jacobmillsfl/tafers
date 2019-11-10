@@ -1,5 +1,10 @@
 <?php
-/* Central file for site navigation */
+/**
+ * Author: Jacob Mills
+ * Date: 10/30/2107
+ * Last updated: 11/09/2019
+ * Description: Central file for site navigation
+ */
 
 include_once("Utilities/SessionManager.php");
 $userNav = SessionManager::getUserName();
@@ -31,6 +36,9 @@ $userNav = SessionManager::getUserName();
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="player.php">Music</a>
+                </li>
+				<li class="nav-item">
+                    <a class="nav-link" href="Contact.php">Contact</a>
                 </li>
 		<?php if (SessionManager::getUserRoleId() == 1 || SessionManager::getUserRoleId() == 2): ?>
                     <li class="nav-item">
