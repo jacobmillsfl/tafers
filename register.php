@@ -46,8 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // NOTE: Restrict registration for now
-        //$user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
-        $user=null;
+        $user = Authentication::createUser($username,$password,$email,$imgUrl,$currentDate,$defaultRoleId);
+        //$user=null;
         // ENDNOTE
 
         if ($user == null) {

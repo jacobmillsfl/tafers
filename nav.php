@@ -57,6 +57,11 @@ $userNav = SessionManager::getUserName();
                         <a class="nav-link" href="blog.php">Blog</a>
                     </li>
                 <?php endif ?>
+		<?php if (SessionManager::getUserRoleId() == 2): ?>
+					<li class="nav-item">
+                        <a class="nav-link" href="admin.php">Admin</a>
+                    </li>
+				<?php endif ?>
                 <?php if (SessionManager::getUserId() > 0): ?>
                     <!--<li class="nav-item">
                         <a class="nav-link" href="/account.php">Account</a>
