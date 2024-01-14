@@ -89,11 +89,11 @@ if(isset($_POST["submit"]))
 		$mail->Port = 587;
 		$mail->SMTPSecure = 'tls';
 		$mail->SMTPAuth = true;
-		$mail->Username = "theambientfunk@gmail.com";
-		$mail->Password = "SolidInk850";
+		$mail->Username = "";
+		$mail->Password = "";
 		$mail->From = $_POST["email"];
 		$mail->FromName = "TAF";
-		$mail->AddAddress('theambientfunk@gmail.com');
+		$mail->AddAddress('');
 		$mail->AddCC($_POST["email"], $_POST["name"]);
 		$mail->WordWrap = 50;
 		$mail->IsHTML(true);
